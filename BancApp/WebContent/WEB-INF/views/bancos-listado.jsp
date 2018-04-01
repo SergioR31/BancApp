@@ -24,7 +24,7 @@
 	       <button name="idBanco" value="${banco.idBanco}">Modificar</button>
 	   </form:form>
 	   
-           <button onclick="confirmar('${banco.entidad}')">Eliminar</button>
+           <button onclick="confirmar('${banco.entidad}' ,${banco.idBanco})">Eliminar</button>
        
 	</c:forEach>
 	
@@ -39,7 +39,7 @@
 		alert('${mensaje}')
 	}
 	
-	function confirmar(entidad){
+	function confirmar(entidad, idBanco){
 		
 		var input = document.getElementById('id_banco');
 		input.value = idBanco;

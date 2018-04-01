@@ -15,8 +15,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.sun.org.apache.xml.internal.dtm.ref.DTMDefaultBaseIterators.TypedPrecedingSiblingIterator;
-
 
 
 /**
@@ -108,12 +106,13 @@ public class BancoDAO implements IBancoDAO {
     String mensaje = "";
     
     Connection conection = null;
+    CallableStatement callableStatement = null;
 
     try {
       
       conection = jdbcTemplate.getDataSource().getConnection();
       
-      CallableStatement callableStatement = conection.prepareCall("{call AGREGAR_BANCO(?, ?, ?)}");
+      callableStatement = conection.prepareCall("{call AGREGAR_BANCO(?, ?, ?)}");
       callableStatement.setString(1, banco.getEntidad());
       callableStatement.setString(2, banco.getSucursal());
       callableStatement.setString(3, banco.getDireccion());
@@ -128,6 +127,13 @@ public class BancoDAO implements IBancoDAO {
       System.out.println("Error en insertarBanco: " + e);
       
       mensaje = "Error al insertar banco!!!";
+    } finally {
+      if (conection != null) {
+        conection.close();
+      }
+      if (callableStatement != null) {
+        callableStatement.close();
+      }
     }
 
     return mensaje;
