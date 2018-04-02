@@ -15,16 +15,16 @@
 <body>
 	<h1>${mensaje}</h1>
 	<form:form action="/BancApp/insertarCliente">
-		<input type="text" id="nombre" name="nombre" placeholder="Nombre" max="20" required>
-		<input type="text" id="apellido_paterno" name="apellidoPaterno" placeholder="Apellido Paterno" max="20" required>
-		<input type="text" id="apellido_materno" name="apellidoMaterno" placeholder="Apellido Materno" max="20" required>
-		<input type="text" id="direccion" name="direccion" placeholder="Direccion" max="100" required>
-		<input type="text" id="estado" name="estado" placeholder="Estado" max="20" required>
-		<input type="number" id="codigo_postal" name="codigoPostal" placeholder="Codigo Postal" max="5" required>
-		<input type="number" id="telefono" name="telefono" placeholder="Telefono" max="10" required>
-		<input type="text" id="correo" name="correo" placeholder="Correo" required>
-		<input type="date" name="fechaNacimiento" step="1" min="1950-01-01" max="2000-12-31" placeholder="Fecha Nacimiento">
-		<input type="text" id="rfc" name="rfc" placeholder="RFC" max="13" required>
+		<input type="text" id="nombre" name="nombre" placeholder="Nombre" maxlength="20" required>
+        <input type="text" id="apellido_paterno" name="apellidoPaterno" placeholder="Apellido Paterno" maxlength="20" required>
+        <input type="text" id="apellido_materno" name="apellidoMaterno" placeholder="Apellido Materno" maxlength="20" required>
+        <input type="text" id="direccion" name="direccion" placeholder="Direccion" maxlength="100" required>
+        <input type="text" id="estado" name="estado" placeholder="Estado" maxlength="20" required>
+        <input type="number" id="codigo_postal" name="codigoPostal" placeholder="Codigo Postal" onKeyPress="if(this.value.length==5) return false;" oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="5" required>
+        <input type="number" id="telefono" name="telefono" placeholder="Telefono" onKeyPress="if(this.value.length==10) return false;" oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10" required>
+        <input type="text" id="correo" name="correo" placeholder="Correo" maxlength="30" required>
+        <input type="date" name="fechaNacimiento" step="1" min="1950-01-01" max="2000-12-31" placeholder="Fecha Nacimiento" required>
+        <input type="text" id="rfc" name="rfc" placeholder="RFC" maxlength="13" required>
 		
 		<button type="submit">Agregar Cliente</button>
 	</form:form>

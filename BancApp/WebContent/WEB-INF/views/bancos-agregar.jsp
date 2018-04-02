@@ -15,9 +15,9 @@
 <body>
 	<h1>${mensaje}</h1>
 	<form:form action="/BancApp/insertarBanco">
-		<input type="text" id="nombre_entidad" name="nombre_entidad" placeholder="Entidad" required>
-		<input type="text" id="nombre_sucursal" name="nombre_sucursal" placeholder="Sucursal" required>
-		<input type="text" id="direccion" name="direccion" placeholder="Direccion" required>
+		<input type="text" id="nombre_entidad" name="nombre_entidad" placeholder="Entidad" maxlength="20" required>
+		<input type="text" id="nombre_sucursal" name="nombre_sucursal" placeholder="Sucursal" maxlength="20" required>
+		<input type="text" id="direccion" name="direccion" placeholder="Direccion" maxlength="100" required>
 		
 		<button type="submit">Agregar Banco</button>
 	</form:form>

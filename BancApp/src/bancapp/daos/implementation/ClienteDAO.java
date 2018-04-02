@@ -96,7 +96,7 @@ public class ClienteDAO implements IClienteDAO {
             cliente.setDireccion(result.getString("DIRECCION"));
             cliente.setEstado(result.getString("ESTADO"));
             cliente.setCodigoPostal(result.getInt("CODIGO_POSTAL"));
-            cliente.setTelefono(result.getInt("TELEFONO"));
+            cliente.setTelefono(result.getLong("TELEFONO"));
             cliente.setCorreo(result.getString("CORREO"));
             cliente.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
             cliente.setRfc(result.getString("RFC"));
@@ -166,20 +166,26 @@ public class ClienteDAO implements IClienteDAO {
 
   @Override
   public String modificarCliente(Cliente cliente) throws Exception {
-    //TODO Modificar metodo
     
     String mensaje = "";
     
-    String sql = "UPDATE BANCOS "
-        + "SET ENTIDAD = ?, "
-        + " SUCURSAL = ?, "
-        + " DIRECCION = ? "
+    String sql = "UPDATE CLIENTES "
+        + "SET NOMBRE = ?, "
+        + " APELLIDO_PATERNO = ?, "
+        + " APELLIDO_MATERNO = ?, "
+        + " DIRECCION = ?, "
+        + " ESTADO = ?, "
+        + " CODIGO_POSTAL = ?, "
+        + " TELEFONO = ?, "
+        + " CORREO = ?, "
+        + " FECHA_NACIMIENTO = ?, "
+        + " RFC = ? "
         + "WHERE ID = ?";
 
     try {
       
-//      jdbcTemplate.update(sql, 
-//          cliente.getEntidad(), cliente.getSucursal(), cliente.getDireccion(), cliente.getIdCliente());
+      jdbcTemplate.update(sql, 
+          cliente.getNombre(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(), cliente.getDireccion(), cliente.getEstado(), cliente.getCodigoPostal(), cliente.getTelefono(), cliente.getCorreo(), cliente.getFechaNacimiento(), cliente.getRfc(), cliente.getIdCliente());
     
       mensaje = "Cliente actualizado con exito";
       
@@ -196,11 +202,10 @@ public class ClienteDAO implements IClienteDAO {
   
   @Override
   public String eliminarCliente(int idCliente) throws Exception {
-    //TODO Modificar metodo
     
     String mensaje = "";
     
-    String sql = "UPDATE BANCOS "
+    String sql = "UPDATE CLIENTES "
         + "SET STATUS = ? "
         + "WHERE ID = ?";
 

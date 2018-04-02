@@ -28,7 +28,7 @@
 	   <h4>${cliente.rfc}</h4>
 	   <h4>${cliente.status}</h4>
 	   <form:form action="/BancApp/Clientes/modificar">
-	       <button name="idBanco" value="${cliente.idCliente}">Modificar</button>
+	       <button name="idCliente" value="${cliente.idCliente}">Modificar</button>
 	   </form:form>
 	   
            <button onclick="confirmar('${cliente.nombre}', ${cliente.idCliente})">Eliminar</button>

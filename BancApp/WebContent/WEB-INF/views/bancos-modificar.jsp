@@ -15,19 +15,14 @@
 <body>
 	<form:form action="/BancApp/modificarBanco">
 	   <input type="hidden" name="idBanco" value="${banco.idBanco }">
-		<input type="text" id="nombre_entidad" name="nombre_entidad" placeholder="Entidad" value="${banco.entidad }" required>
-		<input type="text" id="nombre_sucursal" name="nombre_sucursal" placeholder="Sucursal" value="${banco.sucursal }" required>
-		<input type="text" id="direccion" name="direccion" placeholder="Direccion" value="${banco.direccion }" required>
+		<input type="text" id="nombre_entidad" name="nombre_entidad" placeholder="Entidad" value="${banco.entidad }" maxlength="20" required>
+		<input type="text" id="nombre_sucursal" name="nombre_sucursal" placeholder="Sucursal" value="${banco.sucursal }" maxlength="20" required>
+		<input type="text" id="direccion" name="direccion" placeholder="Direccion" value="${banco.direccion }" maxlength="100" required>
 		
 		<button type="submit">Modificar Banco</button>
 	</form:form>
 	
 	<script>
-	var mensaje = '${mensaje}'
-	
-	if (mensaje != null && mensaje != "") {
-		alert('${mensaje}')
-	}
 	
 	</script>
 </body>
