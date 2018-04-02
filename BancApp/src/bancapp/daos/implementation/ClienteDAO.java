@@ -124,16 +124,24 @@ public class ClienteDAO implements IClienteDAO {
     Connection conection = null;
     
     CallableStatement callableStatement = null;
+    
+    System.out.println(cliente.getFechaNacimiento());
 
     try {
       
       conection = jdbcTemplate.getDataSource().getConnection();
       
-      callableStatement = conection.prepareCall("{call AGREGAR_BANCO(?, ?, ?)}");
-//    callableStatement.setString(1, cliente.getEntidad());
-//    callableStatement.setString(2, cliente.getSucursal());
-//    callableStatement.setString(3, cliente.getDireccion());
-      callableStatement.registerOutParameter(3, Types.VARCHAR);
+      callableStatement = conection.prepareCall("{call AGREGAR_CLIENTE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+      callableStatement.setString(1, cliente.getNombre());
+      callableStatement.setString(2, cliente.getApellidoPaterno());
+      callableStatement.setString(3, cliente.getApellidoMaterno());
+      callableStatement.setString(4, cliente.getDireccion()); 
+      callableStatement.setString(5, cliente.getEstado());
+      callableStatement.setInt(6, cliente.getCodigoPostal());
+      callableStatement.setLong(7, cliente.getTelefono());
+      callableStatement.setString(8,cliente.getCorreo());
+      callableStatement.setDate(9, cliente.getFechaNacimiento());
+      callableStatement.setString(10, cliente.getRfc());
       callableStatement.executeUpdate();
       
       mensaje = "Cliente insertado con exito";

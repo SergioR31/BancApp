@@ -3,6 +3,7 @@ package bancapp.controllers;
 import bancapp.models.Cliente;
 import bancapp.services.interfaces.IClienteService;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ClientesController {
   private static final String MENSAJE = "mensaje";
   
   /**
-   * Mapeo de metodo para mostrar la pagina de listado-clientes con los clientes de la base de datos.  
+   * Mapeo de metodo para mostrar pagina listado-clientes con los clientes de la base de datos.  
    * @param model Define atributos para el JSP.
    * @return
    */
@@ -55,7 +56,7 @@ public class ClientesController {
   }
   
   /**
- * Mapeo de metodo para mostrar la pagina de agregar-clientes.  
+ * Mapeo de metodo para mostrar la pagina de clientes-agregar.  
  * @param model Define atributos para el JSP.
  * @return
  */
@@ -67,7 +68,7 @@ public class ClientesController {
   }
   
   /**
-   * Mapeo de metodo para mostrar la pagina para modificar un cliente.  
+   * Mapeo de metodo para mostrar la pagina para agregar un cliente.  
    * @param model Define atributos para el JSP.
    * @return
    */
@@ -101,16 +102,30 @@ public class ClientesController {
    */
   @RequestMapping(value = "/insertarCliente", method = RequestMethod.POST)
   public RedirectView insertarCliente(
-      @RequestParam("nombre_entidad") String nombreEntidad,
-      @RequestParam("nombre_sucursal") String nombreSucursal,
+      @RequestParam("nombre") String nombre,
+      @RequestParam("apellidoPaterno") String apellidoPaterno,
+      @RequestParam("apellidoMaterno") String apellidoMaterno,
       @RequestParam("direccion") String direccion,
+      @RequestParam("estado") String estado,
+      @RequestParam("codigoPostal") int codigoPostal,
+      @RequestParam("telefono") long telefono,
+      @RequestParam("correo") String correo,
+      @RequestParam("fechaNacimiento") Date fechaNacimiento,
+      @RequestParam("rfc") String rfc,
       RedirectAttributes attributes) {
     
     Cliente cliente = new Cliente();
     
-//    cliente.setEntidad(nombreEntidad);
-//    cliente.setSucursal(nombreSucursal);
-//    cliente.setDireccion(direccion);
+    cliente.setNombre(nombre);
+    cliente.setApellidoPaterno(apellidoPaterno);
+    cliente.setApellidoMaterno(apellidoMaterno);
+    cliente.setDireccion(direccion);
+    cliente.setEstado(estado);
+    cliente.setCodigoPostal(codigoPostal);
+    cliente.setTelefono(telefono);
+    cliente.setCorreo(correo);
+    cliente.setFechaNacimiento(fechaNacimiento);
+    cliente.setRfc(rfc);
     
     
     String mensaje = "";
