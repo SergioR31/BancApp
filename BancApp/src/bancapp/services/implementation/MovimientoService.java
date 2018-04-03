@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * Implementacion del Service de Chequera.
+ * Implementacion del Service de Movimiento.
  * @author SergioRamos
  *
  */
@@ -24,6 +24,9 @@ public class MovimientoService implements IMovimientoService {
   
   @Autowired
   private IMovimientoDAO movimientoDAO;
+  
+  @Autowired
+  private IChequeraDAO chequeraDAO;
 
   /* (non-Javadoc)
    * @see bancapp.services.interfaces.IChequeraService#insertarChequera(bancapp.models.Chequera)
@@ -34,8 +37,32 @@ public class MovimientoService implements IMovimientoService {
     
     String respuesta = "";
     
+    Chequera chequera = new Chequera();
+    
     try {
-      respuesta = movimientoDAO.hacerRetiro(movimiento);
+      
+      chequera = chequeraDAO.consultarChequera(movimiento.getIdChequera());
+      
+      if (chequera.getSaldo() < movimiento.getMonto()) {
+        respuesta = "Saldo insuficiente!!";
+      } else {
+        respuesta = movimientoDAO.hacerRetiro(movimiento);
+      }
+      
+    } catch (Exception e) {
+      System.out.println("Error en hacerRetiro MovimientoService: " + e);
+    }
+    
+    return respuesta;
+  }
+
+  @Override
+  public String hacerDeposito(Movimiento movimiento) throws Exception {
+    // TODO Auto-generated method stub
+    String respuesta = "";
+    
+    try {
+      respuesta = movimientoDAO.hacerDeposito(movimiento);
     } catch (Exception e) {
       System.out.println("Error en hacerRetiro MovimientoService: " + e);
     }

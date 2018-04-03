@@ -16,6 +16,8 @@ public interface IMovimientoDAO {
   
   public String hacerRetiro(Movimiento movimiento) throws Exception;
   
+  public String hacerDeposito(Movimiento movimiento) throws Exception;
+  
 //  public Chequera consultarChequera(int idChequera) throws Exception;
   
 //  public String modificarChequera(Chequera chequera) throws Exception;

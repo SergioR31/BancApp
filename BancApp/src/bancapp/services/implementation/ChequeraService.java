@@ -40,7 +40,7 @@ public class ChequeraService implements IChequeraService {
   }
   
   @Override
-  public Chequera consultarChequera(int idChequera) throws Exception {
+  public Chequera consultarChequera(long idChequera) throws Exception {
     
     Chequera chequera = new Chequera();
     

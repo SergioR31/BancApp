@@ -90,34 +90,29 @@ public class ChequeraDAO implements IChequeraDAO {
   }
   
   @Override
-  public Chequera consultarChequera(int idChequera) throws Exception {
+  public Chequera consultarChequera(long idChequera) throws Exception {
     //TODO Cambiar consulta
     
     Chequera chequera = new Chequera();
     
-    String sql = "SELECT ID, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, DIRECCION, ESTADO, CODIGO_POSTAL, TELEFONO, CORREO, FECHA_NACIMIENTO, RFC, STATUS FROM CLIENTES WHERE ID = ?";
+    String sql = "SELECT ID, SALDO_APERTURA, FECHA_APERTURA, FECHA_CORTE, SALDO, STATUS, CLIENTE_ID, BANCO_ID, CLABE FROM CHEQUERAS WHERE ID = ?";
     
     try {
       chequera = (Chequera) jdbcTemplate.query(sql, 
-          new Object[] {Integer.valueOf(idChequera) }, 
+          new Object[] {Long.valueOf(idChequera) }, 
           new RowMapper<Chequera>() {
         
           @Override
           public Chequera mapRow(ResultSet result, int rowNum) throws SQLException {
             Chequera chequera = new Chequera();
-//            chequera.setIdChequera(result.getInt("ID"));
-//            chequera.setNombre(result.getString("NOMBRE"));
-//            chequera.setApellidoPaterno(result.getString("APELLIDO_PATERNO"));
-//            chequera.setApellidoMaterno(result.getString("APELLIDO_MATERNO"));
-//            chequera.setDireccion(result.getString("DIRECCION"));
-//            chequera.setEstado(result.getString("ESTADO"));
-//            chequera.setCodigoPostal(result.getInt("CODIGO_POSTAL"));
-//            chequera.setTelefono(result.getLong("TELEFONO"));
-//            chequera.setCorreo(result.getString("CORREO"));
-//            chequera.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
-//            chequera.setRfc(result.getString("RFC"));
-//            chequera.setStatus(result.getString("STATUS"));
-          
+            chequera.setIdChequera(result.getLong("ID"));
+            chequera.setSaldoApertura(result.getDouble("SALDO_APERTURA"));
+            chequera.setFechaApertura(result.getDate("FECHA_APERTURA"));
+            chequera.setSaldo(result.getDouble("SALDO"));
+            chequera.setStatus(result.getString("STATUS"));
+            chequera.setIdCliente(result.getInt("CLIENTE_ID"));
+            chequera.setIdBanco(result.getInt("BANCO_ID"));
+            chequera.setClabe(result.getLong("CLABE"));
             return chequera;
           
           }

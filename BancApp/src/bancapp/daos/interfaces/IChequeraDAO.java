@@ -14,7 +14,7 @@ public interface IChequeraDAO {
   
   public String insertarChequera(Chequera chequera) throws Exception;
   
-  public Chequera consultarChequera(int idChequera) throws Exception;
+  public Chequera consultarChequera(long idChequera) throws Exception;
   
   public String modificarChequera(Chequera chequera) throws Exception;
   

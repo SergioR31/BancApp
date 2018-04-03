@@ -4,6 +4,7 @@
 package bancapp.models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * @author SergioRamos
@@ -14,7 +15,7 @@ public class Movimiento {
   private int idMovimiento;
   private String concepto;
   private double monto;
-  private Date fecha;
+  private Timestamp fecha;
   private String status;
   private int tipo;
   private int idTipo;
@@ -58,13 +59,13 @@ public class Movimiento {
   /**
    * @return the fecha
    */
-  public Date getFecha() {
+  public Timestamp getFecha() {
     return fecha;
   }
   /**
    * @param fecha the fecha to set
    */
-  public void setFecha(Date fecha) {
+  public void setFecha(Timestamp fecha) {
     this.fecha = fecha;
   }
   /**

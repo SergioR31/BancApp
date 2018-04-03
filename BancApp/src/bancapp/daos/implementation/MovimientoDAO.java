@@ -74,4 +74,45 @@ public class MovimientoDAO implements IMovimientoDAO {
     return mensaje;
   }
 
+  @Override
+  public String hacerDeposito(Movimiento movimiento) throws Exception {
+    // TODO Auto-generated method stub
+    
+    String mensaje = "";
+    
+    Connection conection = null;
+    
+    CallableStatement callableStatement = null;
+
+    try {
+      
+      conection = jdbcTemplate.getDataSource().getConnection();
+      
+      callableStatement = conection.prepareCall("{call HACER_DEPOSITO(?, ?, ?)}");
+      callableStatement.setLong(1, movimiento.getIdChequera());
+      callableStatement.setDouble(2, movimiento.getMonto());
+      callableStatement.setString(3, movimiento.getConcepto());
+
+      callableStatement.executeUpdate();
+      
+      mensaje = "Deposito realizado con exito";
+      
+      
+    } catch (Exception e) {
+      
+      System.out.println("Error en hacerDeposito: " + e);
+      
+      mensaje = "Error al hacer deposito!!!";
+    } finally {
+      if (conection != null) {
+        conection.close();
+      }
+      if (callableStatement != null) {
+        callableStatement.close();
+      }
+    }
+
+    return mensaje;
+  }
+
 }

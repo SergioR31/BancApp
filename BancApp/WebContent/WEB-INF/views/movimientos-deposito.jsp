@@ -14,7 +14,7 @@
 </head>
 <body>
 	<h1>${mensaje}</h1>
-	<form:form action="/BancApp/retirar">
+	<form:form action="/BancApp/depositar">
 	
 	   <select name="idChequera">
           <c:forEach items="${chequeras }" var="chequera">
@@ -26,7 +26,7 @@
 		
 		<input type="text" id="conepto" name="concepto" placeholder="Concepto" maxlength="100">
 		
-		<button type="submit">Retirar</button>
+		<button type="submit">Depositar</button>
 		
 	</form:form>
 	

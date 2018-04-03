@@ -54,7 +54,7 @@ public class MovimientosController {
       chequeras = (ArrayList<Chequera>) chequeraService.listarChequeras();
       
     } catch (Exception e) {
-      System.out.println("Error en retirosMostrar: " + e);
+      System.out.println("Error en mostrarPaginaRetiro: " + e);
     }
     
     model.addAttribute("chequeras", chequeras);
@@ -64,7 +64,31 @@ public class MovimientosController {
   }
   
   /**
- * Mapeo de metodo para mostrar la pagina de chequeras-agregar.  
+   * Mapeo de metodo para mostrar pagina hacer movimiento.
+   * @param model Define atributos para el JSP.
+   * @return
+   */
+  @RequestMapping(value = "/Movimientos/deposito")
+    public String mostrarPaginaDeposito(Model model) {
+      
+    ArrayList<Chequera> chequeras = new ArrayList<Chequera>();
+    
+    try {
+      
+      chequeras = (ArrayList<Chequera>) chequeraService.listarChequeras();
+      
+    } catch (Exception e) {
+      System.out.println("Error en mostrarPaginaDeposito: " + e);
+    }
+    
+    model.addAttribute("chequeras", chequeras);
+      
+    return "movimientos-deposito";
+      
+  }
+  
+  /**
+ * Mapeo de metodo para hacer retiro en chequera.  
  * @param model Define atributos para el JSP.
  * @return
  */
@@ -96,6 +120,41 @@ public class MovimientosController {
     
     return new RedirectView("Chequeras/listado");
     
+  }
+  
+  /**
+   * Mapeo de metodo para hacer deposito en chequera.  
+   * @param model Define atributos para el JSP.
+   * @return
+   */
+  @RequestMapping(value = "/depositar", method = RequestMethod.POST)
+  public RedirectView movimientoDepositar(
+      @RequestParam("idChequera") long idChequera,
+      @RequestParam("monto") double monto,
+      @RequestParam("concepto") String concepto,
+      Model model,
+      RedirectAttributes attributes) {
+      
+    Movimiento movimiento = new Movimiento();
+      
+    movimiento.setIdChequera(idChequera);
+    movimiento.setMonto(monto);
+    movimiento.setConcepto(concepto);
+      
+    String mensaje = "";
+      
+    try {
+        
+      mensaje = movimientoService.hacerDeposito(movimiento);
+        
+    } catch (Exception e) {
+      System.out.println("Error al hacer deposito: " + e);
+    }
+      
+    attributes.addFlashAttribute(MENSAJE, mensaje);
+      
+    return new RedirectView("Chequeras/listado");
+      
   }
 
 }
