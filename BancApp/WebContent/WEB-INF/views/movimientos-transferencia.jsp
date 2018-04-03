@@ -10,11 +10,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Deposito</title>
+<title>Transferencia</title>
 </head>
 <body>
 	<h1>${mensaje}</h1>
-	<form:form action="/BancApp/depositar">
+	<form:form action="/BancApp/transferir">
 	
 	   <select name="idChequera">
           <c:forEach items="${chequeras }" var="chequera">
@@ -22,11 +22,13 @@
           </c:forEach>
         </select>
         
+		<input type="number" id="clabe" name="clabe" placeholder="CLABE" onKeyPress="if(this.value.length==13) return false;" maxlength="13" required>
+		
 		<input type="number" id="monto" name="monto" placeholder="Monto" onKeyPress="if(this.value.length==10) return false;" maxlength="10" required>
 		
 		<input type="text" id="conepto" name="concepto" placeholder="Concepto" maxlength="100">
 		
-		<button type="submit">Depositar</button>
+		<button type="submit">Transferir</button>
 		
 	</form:form>
 	

@@ -88,6 +88,30 @@ public class MovimientosController {
   }
   
   /**
+   * Mapeo de metodo para mostrar pagina hacer transferencia.
+   * @param model Define atributos para el JSP.
+   * @return
+   */
+  @RequestMapping(value = "/Movimientos/transferencia")
+    public String mostrarPaginaTransferencia(Model model) {
+      
+    ArrayList<Chequera> chequeras = new ArrayList<Chequera>();
+    
+    try {
+      
+      chequeras = (ArrayList<Chequera>) chequeraService.listarChequeras();
+      
+    } catch (Exception e) {
+      System.out.println("Error en mostrarPaginaTransferencia: " + e);
+    }
+    
+    model.addAttribute("chequeras", chequeras);
+      
+    return "movimientos-transferencia";
+      
+  }
+  
+  /**
  * Mapeo de metodo para hacer retiro en chequera.  
  * @param model Define atributos para el JSP.
  * @return
@@ -149,6 +173,42 @@ public class MovimientosController {
         
     } catch (Exception e) {
       System.out.println("Error al hacer deposito: " + e);
+    }
+      
+    attributes.addFlashAttribute(MENSAJE, mensaje);
+      
+    return new RedirectView("Chequeras/listado");
+      
+  }
+  
+  /**
+   * Mapeo de metodo para hacer una trasferencia a chequera.  
+   * @param model Define atributos para el JSP.
+   * @return
+   */
+  @RequestMapping(value = "/transferir", method = RequestMethod.POST)
+  public RedirectView movimientoTransferir(
+      @RequestParam("idChequera") long idChequera,
+      @RequestParam("monto") double monto,
+      @RequestParam("concepto") String concepto,
+      @RequestParam("clabe") long clabe,
+      Model model,
+      RedirectAttributes attributes) {
+      
+    Movimiento movimiento = new Movimiento();
+      
+    movimiento.setIdChequera(idChequera);
+    movimiento.setMonto(monto);
+    movimiento.setConcepto(concepto);
+      
+    String mensaje = "";
+      
+    try {
+        
+      mensaje = movimientoService.hacerTransferencia(movimiento, clabe);
+        
+    } catch (Exception e) {
+      System.out.println("Error al hacer transferencia: " + e);
     }
       
     attributes.addFlashAttribute(MENSAJE, mensaje);

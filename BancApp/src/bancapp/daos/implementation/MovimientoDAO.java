@@ -115,4 +115,47 @@ public class MovimientoDAO implements IMovimientoDAO {
     return mensaje;
   }
 
+  @Override
+  public String hacerTransferencia(Movimiento movimiento, long clabe) throws Exception {
+    // TODO Auto-generated method stub
+    
+    String mensaje = "";
+    
+    Connection conection = null;
+    
+    CallableStatement callableStatement = null;
+    
+try {
+      
+      conection = jdbcTemplate.getDataSource().getConnection();
+      
+      callableStatement = conection.prepareCall("{call HACER_TRANSFERENCIA(?, ?, ?, ?)}");
+      callableStatement.setLong(1, movimiento.getIdChequera());
+      callableStatement.setDouble(2, movimiento.getMonto());
+      callableStatement.setString(3, movimiento.getConcepto());
+      callableStatement.setLong(4, clabe);
+
+      callableStatement.executeUpdate();
+      
+      mensaje = "Transferencia realizado con exito";
+      
+      
+    } catch (Exception e) {
+      
+      System.out.println("Error en hacerTransferencia en MovimientoDAO: " + e);
+      
+      mensaje = "Error al hacer transferencia!!!";
+      
+    } finally {
+      if (conection != null) {
+        conection.close();
+      }
+      if (callableStatement != null) {
+        callableStatement.close();
+      }
+    }
+
+    return mensaje;
+  }
+
 }

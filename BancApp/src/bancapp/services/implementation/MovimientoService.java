@@ -68,6 +68,53 @@ public class MovimientoService implements IMovimientoService {
     }
     
     return respuesta;
+  }
+
+  @Override
+  public String hacerTransferencia(Movimiento movimiento, long clabe) throws Exception {
+    // TODO Auto-generated method stub
+    
+    String respuesta = "";
+    
+    boolean clabeExiste = false;;
+    
+    Chequera chequera = new Chequera();
+    
+    List<Chequera> chequeras = new ArrayList<>();
+    
+
+    try {
+      
+      chequeras = chequeraDAO.listarChequeras();
+      
+      for(Chequera ch: chequeras) {
+        if (ch.getClabe() == clabe) {
+          clabeExiste = true;
+          chequera = ch;
+        }
+      }
+      
+      if (clabeExiste) {
+      
+        if (chequera.getSaldo() < movimiento.getMonto()) {
+          respuesta = "Saldo insuficiente!!";
+          
+        } else {
+          
+          respuesta = movimientoDAO.hacerTransferencia(movimiento, clabe);
+          
+        }
+        
+      } else {
+        respuesta = "La CLABE no esta asociada a ninguna chequera!!";
+      }
+      
+    } catch (Exception e) {
+      System.out.println("Error en hacerTransferencia MovimientoService: " + e);
+    }
+    
+    return respuesta;
+    
   }  
 
 }

@@ -18,6 +18,8 @@ public interface IMovimientoService {
   
   public String hacerDeposito(Movimiento movimiento) throws Exception;
   
+  public String hacerTransferencia(Movimiento movimiento, long clabe) throws Exception;
+  
 //  public Chequera consultarChequera(int idChequera) throws Exception;
   
 //  public String modificarChequera(Chequera chequera) throws Exception;
