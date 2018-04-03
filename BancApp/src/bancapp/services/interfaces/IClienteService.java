@@ -15,9 +15,9 @@ public interface IClienteService {
   
   public String insertarCliente(Cliente cliente) throws Exception;
   
-  public Cliente consultarCliente(int idBCliente) throws Exception;
+  public Cliente consultarCliente(int idCliente) throws Exception;
   
   public String modificarCliente(Cliente cliente) throws Exception;
   
-  public String eliminarCliente(int idBCliente) throws Exception;
+  public String eliminarCliente(int idCliente) throws Exception;
 }

@@ -68,13 +68,9 @@ public class ClientesController {
   }
   
   /**
-   * Mapeo de metodo para mostrar la pagina para agregar un cliente.  
+   * Mapeo de metodo para mostrar la pagina para modificar un cliente.  
+   * @param idCliente Define el id del CLiente
    * @param model Define atributos para el JSP.
-   * @return
-   */
-  /**
-   * @param idCliente
-   * @param model
    * @return
    */
   @RequestMapping(value = "/Clientes/modificar")

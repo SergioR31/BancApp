@@ -117,7 +117,6 @@ public class ClienteDAO implements IClienteDAO {
   
   @Override
   public String insertarCliente(Cliente cliente) throws Exception {
-//    TODO Modificar Stored Procedure
     
     String mensaje = "";
     
