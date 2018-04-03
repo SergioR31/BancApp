@@ -52,9 +52,9 @@ public class ChequeraDAO implements IChequeraDAO {
         public Chequera mapRow(ResultSet result, int rowNum) throws SQLException {
           Chequera chequera = new Chequera();
           chequera.setIdChequera(result.getLong("CHEQUERA_ID"));
-          chequera.setSaldoApertura(result.getInt("SALDO_APERTURA"));
+          chequera.setSaldoApertura(result.getDouble("SALDO_APERTURA"));
           chequera.setFechaApertura(result.getDate("FECHA_APERTURA"));
-          chequera.setSaldo(result.getInt("SALDO"));
+          chequera.setSaldo(result.getDouble("SALDO"));
           chequera.setClabe(result.getLong("CLABE"));
           chequera.setStatus(result.getString("STATUS"));
           chequera.setIdCliente(result.getInt("CLIENTE_ID"));
@@ -145,7 +145,7 @@ public class ChequeraDAO implements IChequeraDAO {
       conection = jdbcTemplate.getDataSource().getConnection();
       
       callableStatement = conection.prepareCall("{call AGREGAR_CHEQUERA(?, ?, ?)}");
-      callableStatement.setInt(1, chequera.getSaldoApertura());
+      callableStatement.setDouble(1, chequera.getSaldoApertura());
       callableStatement.setInt(2, chequera.getIdCliente());
       callableStatement.setInt(3, chequera.getIdBanco());
 

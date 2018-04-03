@@ -136,7 +136,7 @@ public class ChequerasController {
    */
   @RequestMapping(value = "/insertarChequera", method = RequestMethod.POST)
   public RedirectView insertarChequera(
-      @RequestParam("saldoApertura") int saldoApertura,
+      @RequestParam("saldoApertura") double saldoApertura,
       @RequestParam("idBanco") int idBanco,
       @RequestParam("idCliente") int idCliente,
       RedirectAttributes attributes) {

@@ -14,10 +14,10 @@ import java.sql.Date;
 public class Chequera {
   
   private long idChequera;
-  private int saldoApertura;
+  private double saldoApertura;
   private Date fechaApertura;
   private Date fechaCorte;
-  private int saldo;
+  private double saldo;
   private String status;
   private int idBanco;
   private String nombreBanco;
@@ -65,13 +65,13 @@ public class Chequera {
   /**
    * @return the saldoApertura
    */
-  public int getSaldoApertura() {
+  public double getSaldoApertura() {
     return saldoApertura;
   }
   /**
    * @param saldoApertura the saldoApertura to set
    */
-  public void setSaldoApertura(int saldoApertura) {
+  public void setSaldoApertura(double saldoApertura) {
     this.saldoApertura = saldoApertura;
   }
   /**
@@ -101,13 +101,13 @@ public class Chequera {
   /**
    * @return the saldo
    */
-  public int getSaldo() {
+  public double getSaldo() {
     return saldo;
   }
   /**
    * @param saldo the saldo to set
    */
-  public void setSaldo(int saldo) {
+  public void setSaldo(double saldo) {
     this.saldo = saldo;
   }
   /**
