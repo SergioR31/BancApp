@@ -20,6 +20,8 @@ public class Movimiento {
   private int tipo;
   private int idTipo;
   private long idChequera;
+  private double saldo;
+  
   /**
    * @return the idMovimiento
    */
@@ -115,6 +117,18 @@ public class Movimiento {
    */
   public void setIdChequera(long idChequera) {
     this.idChequera = idChequera;
+  }
+  /**
+   * @return the saldo
+   */
+  public double getSaldo() {
+    return saldo;
+  }
+  /**
+   * @param saldo the saldo to set
+   */
+  public void setSaldo(double saldo) {
+    this.saldo = saldo;
   }
   
   
