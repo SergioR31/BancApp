@@ -13,6 +13,7 @@
 <title>Agregar Bancos</title>
 </head>
 <body>
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<h1>${mensaje}</h1>
 	<form:form action="/BancApp/insertarBanco">
 		<input type="text" id="nombre_entidad" name="nombre_entidad" placeholder="Entidad" maxlength="20" required>

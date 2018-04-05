@@ -13,7 +13,7 @@
 <title>Listado Bancos</title>
 </head>
 <body>
-    
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<c:forEach items="${bancos }" var="banco">
 	   <h1>${banco.idBanco}</h1>
 	   <h2>${banco.entidad}</h2>

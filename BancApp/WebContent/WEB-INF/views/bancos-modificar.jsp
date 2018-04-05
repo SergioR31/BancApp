@@ -13,6 +13,7 @@
 <title>Modificar Banco</title>
 </head>
 <body>
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<form:form action="/BancApp/modificarBanco">
 	   <input type="hidden" name="idBanco" value="${banco.idBanco }">
 		<input type="text" id="nombre_entidad" name="nombre_entidad" placeholder="Entidad" value="${banco.entidad }" maxlength="20" required>

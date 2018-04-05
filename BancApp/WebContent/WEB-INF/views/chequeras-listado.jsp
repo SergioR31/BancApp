@@ -13,7 +13,7 @@
 <title>Listado Chequeras</title>
 </head>
 <body>
-    
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<c:forEach items="${chequeras }" var="chequera">
 	   <h1>Chequera: ${chequera.idChequera }</h1>
 	   <h2>Saldo de Apertura: ${chequera.saldoApertura }</h2>

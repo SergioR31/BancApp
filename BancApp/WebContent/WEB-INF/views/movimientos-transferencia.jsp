@@ -13,6 +13,7 @@
 <title>Transferencia</title>
 </head>
 <body>
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<h1>${mensaje}</h1>
 	<form:form action="/BancApp/transferir">
 	

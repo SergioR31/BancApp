@@ -13,6 +13,7 @@
 <title>Consulta Movimientos</title>
 </head>
 <body>
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<h1>${mensaje}</h1>
 	
     <h2>Chequera</h2>

@@ -13,7 +13,7 @@
 <title>Listado Clientes</title>
 </head>
 <body>
-    
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<c:forEach items="${clientes }" var="cliente">
 	   <h1>${cliente.idCliente}</h1>
 	   <h2>${cliente.nombre}</h2>

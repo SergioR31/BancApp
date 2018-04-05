@@ -13,6 +13,7 @@
 <title>Agregar Clientes</title>
 </head>
 <body>
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<h1>${mensaje}</h1>
 	<form:form action="/BancApp/insertarCliente">
 		<input type="text" id="nombre" name="nombre" placeholder="Nombre" maxlength="20" required>

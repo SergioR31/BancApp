@@ -13,6 +13,7 @@
 <title>Listado Retiros</title>
 </head>
 <body>
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
     <h1>${chequera.idChequera }</h1>
     <h2>${chequera.nombreBanco }</h2>
     <h2>${chequera.nombreCliente }</h2>

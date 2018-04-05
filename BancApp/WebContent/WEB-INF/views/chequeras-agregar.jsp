@@ -13,6 +13,7 @@
 <title>Agregar Chequeras</title>
 </head>
 <body>
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<h1>${mensaje}</h1>
 	<form:form action="/BancApp/insertarChequera">
 		<input type="number" id="saldoApertura" name="saldoApertura" placeholder="Saldo Apertura" onKeyPress="if(this.value.length==10) return false;" oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10" required>

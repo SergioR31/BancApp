@@ -13,6 +13,7 @@
 <title>Modificar Cliente</title>
 </head>
 <body>
+    <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<form:form action="/BancApp/modificarCliente">
 	   <input type="hidden" name="idCliente" value="${cliente.idCliente }">	
 		<input type="text" id="nombre" name="nombre" placeholder="Nombre" maxlength="20" value="${cliente.nombre}" required>

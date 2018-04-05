@@ -125,7 +125,7 @@ public class MovimientoDAO implements IMovimientoDAO {
     
     CallableStatement callableStatement = null;
     
-try {
+    try {
       
       conection = jdbcTemplate.getDataSource().getConnection();
       
