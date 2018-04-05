@@ -15,16 +15,16 @@
 <body>
     
 	<c:forEach items="${chequeras }" var="chequera">
-	   <h1>${chequera.idChequera}</h1>
-	   <h2>${chequera.saldoApertura}</h2>
-	   <h2>${chequera.fechaApertura}</h2>
-	   <h2>${chequera.saldo}</h2>
-	   <h2>${chequera.status}</h2>
-	   <h2>${chequera.idBanco}</h2>
-	   <h2>${chequera.nombreBanco}</h2>
-	   <h2>${chequera.idCliente}</h2>
-       <h2>${chequera.nombreCliente}</h2>
-       <h2>${chequera.clabe}</h2>
+	   <h1>Chequera: ${chequera.idChequera }</h1>
+	   <h2>Saldo de Apertura: ${chequera.saldoApertura }</h2>
+	   <h2>Fecha de Apertura: ${chequera.fechaApertura }</h2>
+	   <h2>Saldo Actual: ${chequera.saldo }</h2>
+	   <h2>Status: ${chequera.status }</h2>
+	   <h2>ID Banco: ${chequera.idBanco }</h2>
+	   <h2>Entidad Bancaria: ${chequera.nombreBanco }</h2>
+	   <h2>ID Cliente: ${chequera.idCliente }</h2>
+       <h2>Titular de Chequera: ${chequera.nombreCliente }</h2>
+       <h2>CLABE: ${chequera.clabe }</h2>
 	   
 	   <button onclick="confirmar('${chequera.idChequera}', ${chequera.idChequera})">Eliminar</button>
        
