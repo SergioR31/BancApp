@@ -10,26 +10,36 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado Depositos</title>
+<title>Listado Movimientos</title>
 </head>
 <body>
     <h1>${chequera.idChequera }</h1>
     <h2>${chequera.nombreBanco }</h2>
     <h2>${chequera.nombreCliente }</h2>
     <h2>${chequera.apellodoPCliente }</h2>
+    <h2>Saldo Apertura: ${chequera.saldoApertura }</h2>
+    <h2>Saldo Actual: ${chequera.saldo }</h2>
+    <h2>Clabe: ${chequera.clabe }</h2>
     <h2>Consulta ${periodo }</h2>
-    <h2>${anio }</h2>
-    <h2>${mes }</h2>
-    <h1>${totalDepositos }</h1>
-	<c:forEach items="${depositos }" var="deposito">
-	   <h1>${deposito.idMovimiento }</h1>
-	   <h2>${deposito.concepto }</h2>
-	   <h2>${deposito.monto }</h2>
-	   <h2>${deposito.fecha }</h2>
-	   <h2>${deposito.status }</h2>
-	   <h2>${deposito.idTipo }</h2>
-	   <h2>${deposito.idChequera }</h2>
-       <h2>${deposito.saldo }</h2>
+    <c:if test="${anio != 0}">
+        <h2>Año: ${anio }</h2>
+    </c:if>
+    <c:if test="${mes eq ''}">
+        <h2>Mes: ${mes }</h2>
+    </c:if>
+    <h1>Depositos: ${totalDepositos }</h1>
+    <h1>Retiros: ${totalRetiros }</h1>
+    
+	<c:forEach items="${movimientos }" var="movimiento">
+	   <h1>${movimiento.idMovimiento }</h1>
+	   <h2>${movimiento.concepto }</h2>
+	   <h2>Monto: ${movimiento.monto }</h2>
+	   <h2>${movimiento.fecha }</h2>
+	   <h2>${movimiento.status }</h2>
+	   <h2>${movimiento.operacion }</h2>
+	   <h2>${movimiento.idTipo }</h2>
+	   <h2>${movimiento.idChequera }</h2>
+       <h2> Saldo: ${movimiento.saldo }</h2>
 	   
 	</c:forEach>
 	

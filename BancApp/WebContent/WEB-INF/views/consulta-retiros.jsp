@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado Depositos</title>
+<title>Listado Retiros</title>
 </head>
 <body>
     <h1>${chequera.idChequera }</h1>
@@ -20,16 +20,16 @@
     <h2>Consulta ${periodo }</h2>
     <h2>${anio }</h2>
     <h2>${mes }</h2>
-    <h1>${totalDepositos }</h1>
-	<c:forEach items="${depositos }" var="deposito">
-	   <h1>${deposito.idMovimiento }</h1>
-	   <h2>${deposito.concepto }</h2>
-	   <h2>${deposito.monto }</h2>
-	   <h2>${deposito.fecha }</h2>
-	   <h2>${deposito.status }</h2>
-	   <h2>${deposito.idTipo }</h2>
-	   <h2>${deposito.idChequera }</h2>
-       <h2>${deposito.saldo }</h2>
+    <h1>${totalRetiros }</h1>
+	<c:forEach items="${retiros }" var="retiro">
+	   <h1>${retiro.idMovimiento }</h1>
+	   <h2>${retiro.concepto }</h2>
+	   <h2>${retiro.monto }</h2>
+	   <h2>${retiro.fecha }</h2>
+	   <h2>${retiro.status }</h2>
+	   <h2>${retiro.idTipo }</h2>
+	   <h2>${retiro.idChequera }</h2>
+       <h2>${retiro.saldo }</h2>
 	   
 	</c:forEach>
 	

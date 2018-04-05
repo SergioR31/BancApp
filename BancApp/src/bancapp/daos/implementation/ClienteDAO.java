@@ -37,7 +37,7 @@ public class ClienteDAO implements IClienteDAO {
     
     ArrayList<Cliente> clientes = new ArrayList<>();
 
-    String sql = "SELECT ID, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, DIRECCION, ESTADO, CODIGO_POSTAL, TELEFONO, CORREO, FECHA_NACIMIENTO, RFC, STATUS FROM CLIENTES ORDER BY ID";
+    String sql = "SELECT * FROM CLIENTES ORDER BY ID";
     
     try {
       
@@ -79,7 +79,7 @@ public class ClienteDAO implements IClienteDAO {
     
     Cliente cliente = new Cliente();
     
-    String sql = "SELECT ID, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, DIRECCION, ESTADO, CODIGO_POSTAL, TELEFONO, CORREO, FECHA_NACIMIENTO, RFC, STATUS FROM CLIENTES WHERE ID = ?";
+    String sql = "SELECT * FROM CLIENTES WHERE ID = ?";
     
     try {
       cliente = (Cliente) jdbcTemplate.query(sql, 
@@ -130,7 +130,8 @@ public class ClienteDAO implements IClienteDAO {
       
       conection = jdbcTemplate.getDataSource().getConnection();
       
-      callableStatement = conection.prepareCall("{call AGREGAR_CLIENTE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+      callableStatement = conection.prepareCall(
+          "{call AGREGAR_CLIENTE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
       callableStatement.setString(1, cliente.getNombre());
       callableStatement.setString(2, cliente.getApellidoPaterno());
       callableStatement.setString(3, cliente.getApellidoMaterno());
@@ -184,7 +185,17 @@ public class ClienteDAO implements IClienteDAO {
     try {
       
       jdbcTemplate.update(sql, 
-          cliente.getNombre(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(), cliente.getDireccion(), cliente.getEstado(), cliente.getCodigoPostal(), cliente.getTelefono(), cliente.getCorreo(), cliente.getFechaNacimiento(), cliente.getRfc(), cliente.getIdCliente());
+          cliente.getNombre(), 
+          cliente.getApellidoPaterno(), 
+          cliente.getApellidoMaterno(), 
+          cliente.getDireccion(), 
+          cliente.getEstado(), 
+          cliente.getCodigoPostal(), 
+          cliente.getTelefono(), 
+          cliente.getCorreo(), 
+          cliente.getFechaNacimiento(), 
+          cliente.getRfc(), 
+          cliente.getIdCliente());
     
       mensaje = "Cliente actualizado con exito";
       

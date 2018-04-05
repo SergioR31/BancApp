@@ -17,7 +17,7 @@ public class Movimiento {
   private double monto;
   private Timestamp fecha;
   private String status;
-  private int tipo;
+  private String operacion;
   private int idTipo;
   private long idChequera;
   private double saldo;
@@ -83,16 +83,16 @@ public class Movimiento {
     this.status = status;
   }
   /**
-   * @return the tipo
+   * @return the operacion
    */
-  public int getTipo() {
-    return tipo;
+  public String getOperacion() {
+    return operacion;
   }
   /**
-   * @param tipo the tipo to set
+   * @param operacion the operacion to set
    */
-  public void setTipo(int tipo) {
-    this.tipo = tipo;
+  public void setOperacion(String operacion) {
+    this.operacion = operacion;
   }
   /**
    * @return the idTipo

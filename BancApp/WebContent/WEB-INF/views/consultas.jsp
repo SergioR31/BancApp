@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Transferencia</title>
+<title>Consulta Movimientos</title>
 </head>
 <body>
 	<h1>${mensaje}</h1>
@@ -52,12 +52,13 @@
 	
 	   <input id="id_chequeraMovimientos" type="hidden" name="idChequera">
 	   
-	   <select name="periodo">
+	   <select id="periodo" name="periodo" onchange="cambiarRequerido()">
+	       <option value="completa">Completa</option>
 	       <option value="anual">Anual</option>
 	       <option value="mensual">Mensual</option>
 	   </select>
 	   
-	   <input type="number" id="anioMovimientos" name="anioMovimientos" placeholder="Año" onKeyPress="if(this.value.length==4) return false;" maxlength="4" required>
+	   <input type="number" id="anioMovimientos" name="anioMovimientos" placeholder="Año" onKeyPress="if(this.value.length==4) return false;" maxlength="4">
 	   
 	   <select name="mesMovimientos">
             <option value="01">Enero</option>
@@ -83,7 +84,7 @@
 	   
 	</form:form>
 	
-	<form:form id="formMovimientosP">
+	<form:form id="formMovimientosF">
 	
         <input id="id_chequeraMovimientosP" type="hidden" name="idChequera">
 	
@@ -91,11 +92,11 @@
         
         <input type="date" name="hasta" step="1" min="2000-01-01" max="2018-12-31" placeholder="Desde">
 	
-        <button onclick="consultar('mDepositosP')">Depositos</button>
+        <button onclick="consultar('mDepositosF')">Depositos</button>
         
-        <button onclick="consultar('mRetirosP')">Retiros</button>
+        <button onclick="consultar('mRetirosF')">Retiros</button>
         
-        <button onclick="consultar('mTodoP')">Todo</button>
+        <button onclick="consultar('mTodoF')">Todo</button>
 	   
 	</form:form>
 	
@@ -104,6 +105,18 @@
 	
 	if (mensaje != null && mensaje != "") {
 		alert('${mensaje}')
+	}
+	
+	function cambiarRequerido(){
+		var anioMovimientos = document.getElementById('anioMovimientos');
+		var periodoselect = document.getElementById('periodo');
+		
+		if (periodoselect.value == 'completa'){
+			anioMovimientos.required = false;
+		} else{
+			anioMovimientos.required = true;
+		}
+		
 	}
 	
 	function setValorChequera(){
@@ -133,7 +146,7 @@
         chequeraMP.value = chequera.value;
 		
 		var formMovimientos = document.getElementById('formMovimientos');
-		var formMovimientosP = document.getElementById('formMovimientosP');
+		var formMovimientosF = document.getElementById('formMovimientosF');
 		
 		var idchequera = document.getElementById('id_Chequera');
 		
@@ -142,31 +155,31 @@
 		} else {
 		
 		if (ruta == 'mDepositos'){
-			formMovimientos.action = "/BancApp/Consultar/depositos";
+			formMovimientos.action = "/BancApp/ConsultaMovimientos/depositos";
 		}
 		
 	    if (ruta == 'mRetiros'){
-            formMovimientos.action = "/BancApp/Consultar/retiros";
+            formMovimientos.action = "/BancApp/ConsultaMovimientos/retiros";
         }
 	    
 	    if (ruta == 'mTodo'){
-            formMovimientos.action = "/BancApp/Consultar/todo";
+            formMovimientos.action = "/BancApp/ConsultaMovimientos/todos";
         }
 	    
 	    
-	    if (ruta == 'mDepositosP'){
-	    	formMovimientosP.action = "/BancApp/Consultar/depositos-periodo";
-	    	console.log(formMovimientosP.action);
+	    if (ruta == 'mDepositosF'){
+	    	formMovimientosF.action = "/BancApp/ConsultaMovimientos/depositos-rango-fecha";
+	    	console.log(formMovimientosF.action);
         }
         
-        if (ruta == 'mRetirosP'){
-        	formMovimientosP.action = "/BancApp/Consultar/retiros-periodo";
-        	console.log(formMovimientosP.action);
+        if (ruta == 'mRetirosF'){
+        	formMovimientosF.action = "/BancApp/ConsultaMovimientos/retiros-rango-fecha";
+        	console.log(formMovimientosF.action);
         }
         
-        if (ruta == 'mTodoP'){
-        	formMovimientosP.action = "/BancApp/Consultar/todo-periodo";
-        	console.log(formMovimientosP.action);
+        if (ruta == 'mTodoF'){
+        	formMovimientosF.action = "/BancApp/ConsultaMovimientos/todos-rango-fecha";
+        	console.log(formMovimientosF.action);
         }
         
 		}

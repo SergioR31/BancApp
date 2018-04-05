@@ -13,10 +13,12 @@ import java.util.List;
  */
 public interface IConsultaService {
   
-  public ArrayList<Movimiento> consultarDepositos(long idChequera, String periodo, int anio, int mes) throws Exception;
+  public ArrayList<Movimiento> consultarDepositos(
+      long idChequera, String periodo, int anio, int mes) throws Exception;
   
-//  public String hacerRetiro(Movimiento movimiento) throws Exception;
-//  
-//  public String hacerTransferencia(Movimiento movimiento, long clabe) throws Exception;
-
+  public ArrayList<Movimiento> consultarRetiros(
+      long idChequera, String periodo, int anio, int mes) throws Exception;
+  
+  public ArrayList<Movimiento> consultarTodos(
+      long idChequera, String periodo, int anio, int mes) throws Exception;
 }

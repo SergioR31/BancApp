@@ -23,6 +23,7 @@ public class Chequera {
   private String nombreBanco;
   private int idCliente;
   private String nombreCliente;
+  private String apellodoPCliente;
   private long clabe;
   
   private int cargos01;
@@ -169,6 +170,18 @@ public class Chequera {
    */
   public void setNombreCliente(String nombreCliente) {
     this.nombreCliente = nombreCliente;
+  }
+  /**
+   * @return the apellodoPCliente
+   */
+  public String getApellodoPCliente() {
+    return apellodoPCliente;
+  }
+  /**
+   * @param apellodoPCliente the apellodoPCliente to set
+   */
+  public void setApellodoPCliente(String apellodoPCliente) {
+    this.apellodoPCliente = apellodoPCliente;
   }
   /**
    * @return the clabe

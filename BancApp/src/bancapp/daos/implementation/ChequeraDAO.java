@@ -62,19 +62,6 @@ public class ChequeraDAO implements IChequeraDAO {
           chequera.setIdBanco(result.getInt("BANCO_ID"));
           chequera.setNombreBanco(result.getString("BANCO_NOMBRE"));
           
-//          chequera.setIdChequera(result.getInt("ID"));
-//          chequera.setNombre(result.getString("NOMBRE"));
-//          chequera.setApellidoPaterno(result.getString("APELLIDO_PATERNO"));
-//          chequera.setApellidoMaterno(result.getString("APELLIDO_MATERNO"));
-//          chequera.setDireccion(result.getString("DIRECCION"));
-//          chequera.setEstado(result.getString("ESTADO"));
-//          chequera.setCodigoPostal(result.getInt("CODIGO_POSTAL"));
-//          chequera.setTelefono(result.getLong("TELEFONO"));
-//          chequera.setCorreo(result.getString("CORREO"));
-//          chequera.setFechaNacimiento(result.getDate("FECHA_NACIMIENTO"));
-//          chequera.setRfc(result.getString("RFC"));
-//          chequera.setStatus(result.getString("STATUS"));
-          
           
           return chequera;
           }
@@ -95,7 +82,13 @@ public class ChequeraDAO implements IChequeraDAO {
     
     Chequera chequera = new Chequera();
     
-    String sql = "SELECT ID, SALDO_APERTURA, FECHA_APERTURA, FECHA_CORTE, SALDO, STATUS, CLIENTE_ID, BANCO_ID, CLABE FROM CHEQUERAS WHERE ID = ?";
+//    String sql = "SELECT ID, SALDO_APERTURA, FECHA_APERTURA, FECHA_CORTE, SALDO, STATUS, CLIENTE_ID, BANCO_ID, CLABE FROM CHEQUERAS WHERE ID = ?";
+    
+    String sql = "SELECT CH.ID AS CHEQUERA_ID, CH.SALDO_APERTURA, CH.FECHA_APERTURA, CH.SALDO, CH.CLABE, CH.STATUS, CL.ID AS CLIENTE_ID, CL.NOMBRE, CL.APELLIDO_PATERNO, B.ID AS BANCO_ID, B.ENTIDAD AS BANCO_NOMBRE "
+        + "FROM CHEQUERAS CH "
+        + "JOIN CLIENTES CL ON CH.CLIENTE_ID = CL.ID "
+        + "JOIN BANCOS B ON CH.BANCO_ID = B.ID WHERE CH.ID = ? "
+        + "ORDER BY CH.ID";
     
     try {
       chequera = (Chequera) jdbcTemplate.query(sql, 
@@ -105,14 +98,25 @@ public class ChequeraDAO implements IChequeraDAO {
           @Override
           public Chequera mapRow(ResultSet result, int rowNum) throws SQLException {
             Chequera chequera = new Chequera();
-            chequera.setIdChequera(result.getLong("ID"));
+            chequera.setIdChequera(result.getLong("CHEQUERA_ID"));
             chequera.setSaldoApertura(result.getDouble("SALDO_APERTURA"));
             chequera.setFechaApertura(result.getDate("FECHA_APERTURA"));
             chequera.setSaldo(result.getDouble("SALDO"));
+            chequera.setClabe(result.getLong("CLABE"));
             chequera.setStatus(result.getString("STATUS"));
             chequera.setIdCliente(result.getInt("CLIENTE_ID"));
+            chequera.setNombreCliente(result.getString("NOMBRE"));
+            chequera.setApellodoPCliente(result.getString("APELLIDO_PATERNO"));
             chequera.setIdBanco(result.getInt("BANCO_ID"));
-            chequera.setClabe(result.getLong("CLABE"));
+            chequera.setNombreBanco(result.getString("BANCO_NOMBRE"));
+//            chequera.setIdChequera(result.getLong("ID"));
+//            chequera.setSaldoApertura(result.getDouble("SALDO_APERTURA"));
+//            chequera.setFechaApertura(result.getDate("FECHA_APERTURA"));
+//            chequera.setSaldo(result.getDouble("SALDO"));
+//            chequera.setStatus(result.getString("STATUS"));
+//            chequera.setIdCliente(result.getInt("CLIENTE_ID"));
+//            chequera.setIdBanco(result.getInt("BANCO_ID"));
+//            chequera.setClabe(result.getLong("CLABE"));
             return chequera;
           
           }
