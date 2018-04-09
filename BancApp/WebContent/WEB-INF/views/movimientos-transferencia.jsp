@@ -16,6 +16,8 @@
     <c:import url="/WEB-INF/fragments/boton-inicio.jsp"></c:import>
 	<h1>${mensaje}</h1>
 	<form:form action="/BancApp/transferir">
+	   
+	   <input type="datetime-local" name="fechaTransferencia" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Transferencia" required>
 	
 	   <select name="idChequera">
           <c:forEach items="${chequeras }" var="chequera">

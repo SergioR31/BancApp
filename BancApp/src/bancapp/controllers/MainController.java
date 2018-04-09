@@ -1,5 +1,6 @@
 package bancapp.controllers;
 
+import java.lang.annotation.Repeatable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 
@@ -28,7 +29,8 @@ public class MainController {
  * @param model Define atributos para el JSP.
  * @return
  */
-  @RequestMapping(value = "/Home", method = RequestMethod.GET)
+  
+  @RequestMapping(value = {"/Home", ""}, method = RequestMethod.GET)
   public String bancosInsertar(Model model) {
     
     return "home";

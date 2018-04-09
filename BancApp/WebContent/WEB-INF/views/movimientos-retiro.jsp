@@ -17,6 +17,8 @@
 	<h1>${mensaje}</h1>
 	<form:form action="/BancApp/retirar">
 	
+	   <input type="datetime-local" name="fechaRetiro" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Retiro" required>
+	
 	   <select name="idChequera">
           <c:forEach items="${chequeras }" var="chequera">
               <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } -</option>

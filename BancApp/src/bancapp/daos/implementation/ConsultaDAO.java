@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ public class ConsultaDAO implements IConsultaDAO {
    */
   
   @Override
-  public ArrayList<Movimiento> consultarDepositos (long idChequera, String periodo, int anio, int mes) throws Exception {
+  public ArrayList<Movimiento> consultarDepositos(long idChequera, String periodo, int anio, int mes) throws Exception {
     
     ArrayList<Movimiento> depositos = new ArrayList<>();
     
@@ -122,6 +123,53 @@ public class ConsultaDAO implements IConsultaDAO {
     } 
     
     return depositos;
+  }
+  
+  @Override
+  public ArrayList<Movimiento> consultarDepositosFecha(
+      long idChequera, String desde, String hasta) throws Exception {
+    // TODO Auto-generated method stub
+    
+    ArrayList<Movimiento> depositosFecha = new ArrayList<>();
+    
+    String sql = "SELECT * FROM MOVIMIENTOS M "
+        + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
+        + "WHERE M.CHEQUERA_ID = " + idChequera
+        + " AND FECHA >= '" + desde + "' AND FECHA <= '" + hasta
+        + "' AND M.TIPO_MOVIMIENTO_ID IN (2, 4) ORDER BY M.FECHA";
+    
+    System.out.println("consultarDepositosFecha"+sql);
+    
+    try {
+      
+      depositosFecha = (ArrayList<Movimiento>) jdbcTemplate.query(sql, new RowMapper<Movimiento>() {
+        
+        @Override
+        public Movimiento mapRow(ResultSet result, int rowNum) throws SQLException {
+          
+          Movimiento movimiento = new Movimiento();
+          
+          movimiento.setIdMovimiento(result.getInt("ID"));
+          movimiento.setConcepto(result.getString("CONCEPTO"));
+          movimiento.setMonto(result.getDouble("MONTO"));
+          movimiento.setFecha(result.getTimestamp("FECHA"));
+          movimiento.setStatus(result.getString("STATUS"));
+          movimiento.setIdTipo(result.getInt("TIPO_MOVIMIENTO_ID"));
+          movimiento.setIdChequera(result.getLong("CHEQUERA_ID"));
+          movimiento.setSaldo(result.getDouble("SALDO"));
+          
+          return movimiento;
+          
+        }
+      });
+      
+    } catch (Exception e) {
+      
+      System.out.println("Error en consultarDepositosFecha de ConsultaDAO: " + e);
+      
+    }
+    
+    return depositosFecha;
   }
 
   @Override
@@ -214,9 +262,57 @@ public class ConsultaDAO implements IConsultaDAO {
     
     return retiros;
   }
+  
+  @Override
+  public ArrayList<Movimiento> consultarRetirosFecha(
+      long idChequera, String desde, String hasta) throws Exception {
+    // TODO Auto-generated method stub
+    
+    ArrayList<Movimiento> retirosFecha = new ArrayList<>();
+    
+    String sql = "SELECT * FROM MOVIMIENTOS M "
+        + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
+        + "WHERE M.CHEQUERA_ID = " + idChequera
+        + " AND FECHA >= '" + desde + "' AND FECHA <= '" + hasta
+        + "' AND M.TIPO_MOVIMIENTO_ID IN (1, 3) ORDER BY M.FECHA";
+    
+    System.out.println("consultarRetirosFecha: "+sql);
+    
+    try {
+      
+      retirosFecha = (ArrayList<Movimiento>) jdbcTemplate.query(sql, new RowMapper<Movimiento>() {
+        
+        @Override
+        public Movimiento mapRow(ResultSet result, int rowNum) throws SQLException {
+          
+          Movimiento movimiento = new Movimiento();
+          
+          movimiento.setIdMovimiento(result.getInt("ID"));
+          movimiento.setConcepto(result.getString("CONCEPTO"));
+          movimiento.setMonto(result.getDouble("MONTO"));
+          movimiento.setFecha(result.getTimestamp("FECHA"));
+          movimiento.setStatus(result.getString("STATUS"));
+          movimiento.setIdTipo(result.getInt("TIPO_MOVIMIENTO_ID"));
+          movimiento.setIdChequera(result.getLong("CHEQUERA_ID"));
+          movimiento.setSaldo(result.getDouble("SALDO"));
+          
+          return movimiento;
+          
+        }
+      });
+      
+    } catch (Exception e) {
+      
+      System.out.println("Error en consultarDepositosFecha de ConsultaDAO: " + e);
+      
+    }
+    
+    return retirosFecha;
+  }
 
   @Override
-  public ArrayList<Movimiento> consultarTodos(long idChequera, String periodo, int anio, int mes) throws Exception {
+  public ArrayList<Movimiento> consultarTodos(
+      long idChequera, String periodo, int anio, int mes) throws Exception {
     // TODO Auto-generated method stub
     
     ArrayList<Movimiento> movimientosTodos = new ArrayList<>();
@@ -253,8 +349,8 @@ public class ConsultaDAO implements IConsultaDAO {
         + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
         + "WHERE M.CHEQUERA_ID = " + idChequera + " "
         + "AND M.FECHA >= TO_DATE ('01/" + stringMes + "/" + anio + "', 'DD/MM/YYYY') "
-        + "AND < TO_DATE ('" + dia + "/" + stringMes1 + "/" + anio + "', 'DD/MM/YYYY') "
-        + "ORDER BY M.ID";
+        + "AND M.FECHA < TO_DATE ('" + dia + "/" + stringMes1 + "/" + anio + "', 'DD/MM/YYYY') "
+        + "ORDER BY M.FECHA";
     
     String completa = "SELECT * FROM MOVIMIENTOS M "
         + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
@@ -301,6 +397,52 @@ public class ConsultaDAO implements IConsultaDAO {
     }
     
     return movimientosTodos;
+  }
+  
+  @Override
+  public ArrayList<Movimiento> consultarTodosFecha(
+      long idChequera, String desde, String hasta) throws Exception {
+    // TODO Auto-generated method stub
+    
+    ArrayList<Movimiento> todosFecha = new ArrayList<>();
+    
+    String sql = "SELECT * FROM MOVIMIENTOS M "
+        + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
+        + "WHERE M.CHEQUERA_ID = " + idChequera
+        + " AND FECHA >= '" + desde + "' AND FECHA <= '" + hasta
+        + "' ORDER BY M.FECHA";
+    
+    try {
+      
+      todosFecha = (ArrayList<Movimiento>) jdbcTemplate.query(sql, new RowMapper<Movimiento>() {
+        
+        @Override
+        public Movimiento mapRow(ResultSet result, int rowNum) throws SQLException {
+          
+          Movimiento movimiento = new Movimiento();
+          
+          movimiento.setIdMovimiento(result.getInt("ID"));
+          movimiento.setConcepto(result.getString("CONCEPTO"));
+          movimiento.setMonto(result.getDouble("MONTO"));
+          movimiento.setFecha(result.getTimestamp("FECHA"));
+          movimiento.setStatus(result.getString("STATUS"));
+          movimiento.setIdTipo(result.getInt("TIPO_MOVIMIENTO_ID"));
+          movimiento.setIdChequera(result.getLong("CHEQUERA_ID"));
+          movimiento.setSaldo(result.getDouble("SALDO"));
+          movimiento.setOperacion(result.getString("OPERACION"));
+          
+          return movimiento;
+          
+        }
+      });
+      
+    } catch (Exception e) {
+      
+      System.out.println("Error en consultarTodosFecha de ConsultaDAO: " + e);
+      
+    }
+    
+    return todosFecha;
   }
 
 }

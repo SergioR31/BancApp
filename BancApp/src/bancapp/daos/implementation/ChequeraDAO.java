@@ -143,10 +143,11 @@ public class ChequeraDAO implements IChequeraDAO {
       
       conection = jdbcTemplate.getDataSource().getConnection();
       
-      callableStatement = conection.prepareCall("{call AGREGAR_CHEQUERA(?, ?, ?)}");
-      callableStatement.setDouble(1, chequera.getSaldoApertura());
-      callableStatement.setInt(2, chequera.getIdCliente());
-      callableStatement.setInt(3, chequera.getIdBanco());
+      callableStatement = conection.prepareCall("{call AGREGAR_CHEQUERA_FM(?, ?, ?, ?)}");
+      callableStatement.setDate(1, chequera.getFechaApertura());
+      callableStatement.setDouble(2, chequera.getSaldoApertura());
+      callableStatement.setInt(3, chequera.getIdCliente());
+      callableStatement.setInt(4, chequera.getIdBanco());
 
       callableStatement.executeUpdate();
       

@@ -47,10 +47,11 @@ public class MovimientoDAO implements IMovimientoDAO {
       
       conection = jdbcTemplate.getDataSource().getConnection();
       
-      callableStatement = conection.prepareCall("{call HACER_RETIRO(?, ?, ?)}");
-      callableStatement.setLong(1, movimiento.getIdChequera());
-      callableStatement.setDouble(2, movimiento.getMonto());
-      callableStatement.setString(3, movimiento.getConcepto());
+      callableStatement = conection.prepareCall("{call HACER_RETIRO_FM(?, ?, ?, ?)}");
+      callableStatement.setTimestamp(1, movimiento.getFecha());
+      callableStatement.setLong(2, movimiento.getIdChequera());
+      callableStatement.setDouble(3, movimiento.getMonto());
+      callableStatement.setString(4, movimiento.getConcepto());
 
       callableStatement.executeUpdate();
       
@@ -88,10 +89,11 @@ public class MovimientoDAO implements IMovimientoDAO {
       
       conection = jdbcTemplate.getDataSource().getConnection();
       
-      callableStatement = conection.prepareCall("{call HACER_DEPOSITO(?, ?, ?)}");
-      callableStatement.setLong(1, movimiento.getIdChequera());
-      callableStatement.setDouble(2, movimiento.getMonto());
-      callableStatement.setString(3, movimiento.getConcepto());
+      callableStatement = conection.prepareCall("{call HACER_DEPOSITO_FM(?, ?, ?, ?)}");
+      callableStatement.setTimestamp(1, movimiento.getFecha());
+      callableStatement.setLong(2, movimiento.getIdChequera());
+      callableStatement.setDouble(3, movimiento.getMonto());
+      callableStatement.setString(4, movimiento.getConcepto());
 
       callableStatement.executeUpdate();
       
@@ -129,11 +131,12 @@ public class MovimientoDAO implements IMovimientoDAO {
       
       conection = jdbcTemplate.getDataSource().getConnection();
       
-      callableStatement = conection.prepareCall("{call HACER_TRANSFERENCIA(?, ?, ?, ?)}");
-      callableStatement.setLong(1, movimiento.getIdChequera());
-      callableStatement.setDouble(2, movimiento.getMonto());
-      callableStatement.setString(3, movimiento.getConcepto());
-      callableStatement.setLong(4, clabe);
+      callableStatement = conection.prepareCall("{call HACER_TRANSFERENCIA_FM(?, ?, ?, ?, ?)}");
+      callableStatement.setTimestamp(1, movimiento.getFecha());
+      callableStatement.setLong(2, movimiento.getIdChequera());
+      callableStatement.setDouble(3, movimiento.getMonto());
+      callableStatement.setString(4, movimiento.getConcepto());
+      callableStatement.setLong(5, clabe);
 
       callableStatement.executeUpdate();
       

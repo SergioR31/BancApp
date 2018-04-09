@@ -45,7 +45,7 @@
             <option value="12">Diciembre</option>
         </select>
 		
-		<button type="submit">Estado de Cuenta</button>
+		<button type="submit" onclick="setValorChequera()">Estado de Cuenta</button>
 		
 	</form:form>
 	
@@ -88,11 +88,13 @@
 	<form:form id="formMovimientosF">
 	
         <input id="id_chequeraMovimientosP" type="hidden" name="idChequera">
-	
-        <input type="date" name="desde" step="1" min="2000-01-01" max="2018-12-31" placeholder="Desde" required>
         
-        <input type="date" name="hasta" step="1" min="2000-01-01" max="2018-12-31" placeholder="Desde">
+        <input type="datetime-local" name="desde" step="1" placeholder="Desde Fecha" value="2000-01-01T00:00" required>
+        
+        <input type="datetime-local" name="hasta" step="1" placeholder="Hasta Fecha" value="2018-04-01T23:59:59" required>
 	
+        
+        
         <button onclick="consultar('mDepositosF')">Depositos</button>
         
         <button onclick="consultar('mRetirosF')">Retiros</button>
