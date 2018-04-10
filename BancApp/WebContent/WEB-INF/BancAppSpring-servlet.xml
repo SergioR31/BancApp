@@ -4,7 +4,7 @@
     xmlns:mvc="http://www.springframework.org/schema/mvc"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-	http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd
@@ -15,17 +15,33 @@
     
     <mvc:annotation-driven validator="validator"/>
     
-    <!-- Mostrar u ocultar parametros en url -->
+    <!-- Mostrar u ocultar parametros en url -->    
     <mvc:annotation-driven ignore-default-model-on-redirect="true" />
     
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-    	<property name="prefix" value="/WEB-INF/views/" />
-    	<property name="suffix" value=".jsp" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="sergio.ramos.c31@gmail.com" />
+        <property name="password" value="5Sergio31Ramos01Cervantes5" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.ssl.trust">*</prop>
+                
+            </props>
+        </property>
     </bean>
     
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-    	<property name="validationMessageSource" ref="messageSource"/>
+        <property name="validationMessageSource" ref="messageSource"/>
     </bean>
     
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">

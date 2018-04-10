@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +38,13 @@ public class MovimientosController {
   private IChequeraService chequeraService;
   
   @Autowired
+  private IClienteService clienteService;
+  
+  @Autowired
   private IMovimientoService movimientoService;
+  
+  @Autowired
+  private JavaMailSender mailSender;
 
   private static final String MENSAJE = "mensaje";
   
@@ -126,6 +134,10 @@ public class MovimientosController {
       Model model,
       RedirectAttributes attributes) {
     
+    Chequera chequera = new Chequera();
+    Cliente cliente = new Cliente();
+    String subject = "Retiro realizado";
+    
     String fecha = fechaRetiroS.substring(0, 10);
     String hora = "";
     if (fechaRetiroS.substring(11).length() == 5) {
@@ -150,8 +162,25 @@ public class MovimientosController {
       
       mensaje = movimientoService.hacerRetiro(movimiento);
       
+      chequera = chequeraService.consultarChequera(idChequera);
+      
+      cliente = clienteService.consultarCliente(chequera.getIdCliente());
+      
+      mensaje += mensaje + "por concepto de " + concepto + ". con fecha y hora: " + fechaRetiro;
+      
+   // creates a simple e-mail object
+      SimpleMailMessage email = new SimpleMailMessage();
+      System.out.println(cliente.getCorreo());
+      email.setTo(cliente.getCorreo());
+      email.setSubject(subject);
+      email.setText(mensaje);
+      
+      
+   // sends the e-mail
+      mailSender.send(email);
+      
     } catch (Exception e) {
-      System.out.println("Error al hacer retiro: " + e);
+      System.out.println("Error en movimientoRetirar: " + e);
     }
     
     attributes.addFlashAttribute(MENSAJE, mensaje);
@@ -173,6 +202,10 @@ public class MovimientosController {
       @RequestParam("concepto") String concepto,
       Model model,
       RedirectAttributes attributes) {
+    
+    Chequera chequera = new Chequera();
+    Cliente cliente = new Cliente();
+    String subject = "Deposito realizado";
 
     String fecha = fechaDepositoS.substring(0, 10);
     String hora = "";
@@ -195,6 +228,25 @@ public class MovimientosController {
     try {
         
       mensaje = movimientoService.hacerDeposito(movimiento);
+      
+      chequera = chequeraService.consultarChequera(idChequera);
+      
+      cliente = clienteService.consultarCliente(chequera.getIdCliente());
+      
+      mensaje += mensaje + "por concepto de " + concepto + ". con fecha y hora: " + fechaDeposito;
+      
+      // creates a simple e-mail object
+         SimpleMailMessage email = new SimpleMailMessage();
+         System.out.println(cliente.getCorreo());
+         email.setTo(cliente.getCorreo());
+         email.setSubject(subject);
+         email.setText(mensaje);
+         
+         
+      // sends the e-mail
+         mailSender.send(email);
+      
+      
         
     } catch (Exception e) {
       System.out.println("Error al hacer deposito: " + e);
@@ -221,11 +273,15 @@ public class MovimientosController {
       Model model,
       RedirectAttributes attributes) {
     
+    Chequera chequera = new Chequera();
+    Cliente cliente = new Cliente();
+    String subject = "Transferencia realizada";
+    
     String fecha = fechaTransferenciaS.substring(0, 10);
     String hora = "";
     if (fechaTransferenciaS.substring(11).length() == 5) {
       hora = fechaTransferenciaS.substring(11) + ":00";
-    }else {
+    } else {
       hora = fechaTransferenciaS.substring(11);
     }
     Timestamp fechaTransferencia = Timestamp.valueOf(fecha + " " + hora);
@@ -242,6 +298,23 @@ public class MovimientosController {
     try {
         
       mensaje = movimientoService.hacerTransferencia(movimiento, clabe);
+      
+      chequera = chequeraService.consultarChequera(idChequera);
+      
+      cliente = clienteService.consultarCliente(chequera.getIdCliente());
+      
+      mensaje += mensaje + "por concepto de " + concepto + ". con fecha y hora: " + fechaTransferencia;
+      
+      // creates a simple e-mail object
+      SimpleMailMessage email = new SimpleMailMessage();
+      System.out.println(cliente.getCorreo());
+      email.setTo(cliente.getCorreo());
+      email.setSubject(subject);
+      email.setText(mensaje);
+         
+         
+      // sends the e-mail
+      mailSender.send(email);
         
     } catch (Exception e) {
       System.out.println("Error al hacer transferencia: " + e);
