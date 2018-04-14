@@ -29,6 +29,44 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <div class="row">
+                <form:form action="/BancApp/retirar">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Chequera de Retiro</label>
+                            <select class="form-control" name="idChequera">
+                                <c:forEach items="${chequeras }" var="chequera">
+                                    <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } -</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Fecha de Retiro</label>
+                            <input class="form-control" type="datetime-local" name="fechaRetiro" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Retiro" required>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Concepto</label>
+                            <input class="form-control" type="text" id="conepto" name="concepto" placeholder="Concepto del Retiro" maxlength="100">
+                        </div>
+                        
+                        <label>Monto</label>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">$</span>
+                            <input class="form-control" type="number" id="monto" name="monto" placeholder="Monto a retirar" onKeyPress="if(this.value.length==10) return false;" maxlength="10" required>
+                            <span class="input-group-addon">.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary" type="submit">Retirar</button>
+                    </div>
+                </form:form>
+            </div>
  
         </div>
     
@@ -37,23 +75,5 @@
     
     <c:import url="/fragments/scripts.jsp"></c:import>
     
-	<form:form action="/BancApp/retirar">
-	
-	   <input type="datetime-local" name="fechaRetiro" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Retiro" required>
-	
-	   <select name="idChequera">
-          <c:forEach items="${chequeras }" var="chequera">
-              <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } -</option>
-          </c:forEach>
-        </select>
-        
-		<input type="number" id="monto" name="monto" placeholder="Monto" onKeyPress="if(this.value.length==10) return false;" maxlength="10" required>
-		
-		<input type="text" id="conepto" name="concepto" placeholder="Concepto" maxlength="100">
-		
-		<button type="submit">Retirar</button>
-		
-	</form:form>
-	
 </body>
 </html>

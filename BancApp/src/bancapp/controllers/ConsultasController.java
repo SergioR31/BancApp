@@ -165,6 +165,8 @@ private static final String MENSAJE = "mensaje";
       
     }
     
+    model.addAttribute("desde", desde);
+    model.addAttribute("hasta", hasta);
     model.addAttribute("chequera", chequera);
     model.addAttribute("depositos", depositosFecha);
     model.addAttribute("totalDepositos", totalDepositos);
@@ -196,7 +198,7 @@ private static final String MENSAJE = "mensaje";
       retiros = consultaService.consultarRetiros(idChequera, periodo, anio, mes); 
 
     } catch (Exception e) {
-      System.out.println("Error en consultarDepositos: " + e);
+      System.out.println("Error en consultarRetiros: " + e);
     }
     
     for (Movimiento retiro: retiros) {
@@ -255,28 +257,30 @@ private static final String MENSAJE = "mensaje";
       Model model,
       RedirectAttributes attributes) {
     
-    ArrayList<Movimiento> depositosFecha = new ArrayList<>();
+    ArrayList<Movimiento> retirosFecha = new ArrayList<>();
     Chequera chequera = new Chequera();
-    double totalDepositos = 0;
+    double totalRetiros = 0;
     
     try {
       
       chequera = chequeraService.consultarChequera(idChequera);
       
-      depositosFecha = consultaService.consultarRetirosFecha(idChequera, desde, hasta);
+      retirosFecha = consultaService.consultarRetirosFecha(idChequera, desde, hasta);
 
     } catch (Exception e) {
       System.out.println("Error en consultarRetirosPorFecha: " + e);
     }
     
-    for (Movimiento deposito: depositosFecha) {
-      totalDepositos += deposito.getMonto();
+    for (Movimiento retiro: retirosFecha) {
+      totalRetiros += retiro.getMonto();
       
     }
     
+    model.addAttribute("desde", desde);
+    model.addAttribute("hasta", hasta);
     model.addAttribute("chequera", chequera);
-    model.addAttribute("depositos", depositosFecha);
-    model.addAttribute("totalDepositos", totalDepositos);
+    model.addAttribute("retiros", retirosFecha);
+    model.addAttribute("totalRetiros", totalRetiros);
     
     return "consulta-retiros-fechas";
   }
@@ -306,7 +310,7 @@ private static final String MENSAJE = "mensaje";
       movimientosTodos = consultaService.consultarTodos(idChequera, periodo, anio, mes); 
 
     } catch (Exception e) {
-      System.out.println("Error en consultarDepositos: " + e);
+      System.out.println("Error en consultarTodos: " + e);
     }
     
     for (Movimiento movimiento: movimientosTodos) {
@@ -392,6 +396,8 @@ private static final String MENSAJE = "mensaje";
       }
     }
     
+    model.addAttribute("desde", desde);
+    model.addAttribute("hasta", hasta);
     model.addAttribute("chequera", chequera);
     model.addAttribute("movimientos", movimientosTodosFecha);
     model.addAttribute("totalDepositos", totalDepositos);

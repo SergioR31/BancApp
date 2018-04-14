@@ -69,18 +69,18 @@ public class ConsultaDAO implements IConsultaDAO {
         + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
         + "WHERE M.CHEQUERA_ID = " + idChequera + " AND M.FECHA BETWEEN TO_DATE ('01/01/" + anio + "', 'DD/MM/YYYY') "
             + "AND TO_DATE ('31/12/" + anio + "', 'DD/MM/YYYY') "
-                + "AND M.TIPO_MOVIMIENTO_ID IN (2, 4) ORDER BY M.ID";
+                + "AND M.TIPO_MOVIMIENTO_ID IN (2, 4) ORDER BY M.FECHA";
     
     String mensual = "SELECT * FROM MOVIMIENTOS M "
         + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
         + "WHERE M.CHEQUERA_ID = " + idChequera + " AND M.FECHA >= TO_DATE ('01/" + stringMes + "/" + anio + "', 'DD/MM/YYYY') "
             + "AND M.FECHA < TO_DATE ('"+ dia +"/" + stringMes1 + "/" + anio + "', 'DD/MM/YYYY') "
-                + "AND M.TIPO_MOVIMIENTO_ID IN (2, 4) ORDER BY M.ID";
+                + "AND M.TIPO_MOVIMIENTO_ID IN (2, 4) ORDER BY M.FECHA";
     
     String completa = "SELECT * FROM MOVIMIENTOS M "
         + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
         + " WHERE M.CHEQUERA_ID = " + idChequera + " "
-        + "AND M.TIPO_MOVIMIENTO_ID IN (2, 4) ORDER BY M.ID";
+        + "AND M.TIPO_MOVIMIENTO_ID IN (2, 4) ORDER BY M.FECHA";
     
     String sql = "";
     
@@ -107,6 +107,7 @@ public class ConsultaDAO implements IConsultaDAO {
           movimiento.setFecha(result.getTimestamp("FECHA"));
           movimiento.setStatus(result.getString("STATUS"));
           movimiento.setIdTipo(result.getInt("TIPO_MOVIMIENTO_ID"));
+          movimiento.setOperacion(result.getString("OPERACION"));
           movimiento.setIdChequera(result.getLong("CHEQUERA_ID"));
           movimiento.setSaldo(result.getDouble("SALDO"));
           
@@ -155,6 +156,7 @@ public class ConsultaDAO implements IConsultaDAO {
           movimiento.setFecha(result.getTimestamp("FECHA"));
           movimiento.setStatus(result.getString("STATUS"));
           movimiento.setIdTipo(result.getInt("TIPO_MOVIMIENTO_ID"));
+          movimiento.setOperacion(result.getString("OPERACION"));
           movimiento.setIdChequera(result.getLong("CHEQUERA_ID"));
           movimiento.setSaldo(result.getDouble("SALDO"));
           
@@ -205,19 +207,19 @@ public class ConsultaDAO implements IConsultaDAO {
         + "WHERE M.CHEQUERA_ID = " + idChequera + " "
         + "AND M.FECHA BETWEEN TO_DATE ('01/01/" + anio + "', 'DD/MM/YYYY') "
         + "AND TO_DATE ('31/12/" + anio + "', 'DD/MM/YYYY') "
-        + "AND M.TIPO_MOVIMIENTO_ID IN (1, 3) ORDER BY M.ID";
+        + "AND M.TIPO_MOVIMIENTO_ID IN (1, 3) ORDER BY M.FECHA";
     
-    String mensual = "SELECT * FROM MOVIMIENTOS "
+    String mensual = "SELECT * FROM MOVIMIENTOS M "
         + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
         + "WHERE M.CHEQUERA_ID = " + idChequera + " "
         + "AND M.FECHA >= TO_DATE ('01/" + stringMes + "/" + anio + "', 'DD/MM/YYYY') "
         + "AND M.FECHA < TO_DATE ('" + dia + "/" + stringMes1 + "/" + anio + "', 'DD/MM/YYYY') "
-        + "AND M.TIPO_MOVIMIENTO_ID IN (1, 3) ORDER BY M.ID";
+        + "AND M.TIPO_MOVIMIENTO_ID IN (1, 3) ORDER BY M.FECHA";
     
     String completa = "SELECT * FROM MOVIMIENTOS M "
         + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
         + " WHERE M.CHEQUERA_ID = " + idChequera + " "
-        + "AND M.TIPO_MOVIMIENTO_ID IN (1, 3) ORDER BY M.ID";
+        + "AND M.TIPO_MOVIMIENTO_ID IN (1, 3) ORDER BY M.FECHA";
     
     String sql = "";
     
@@ -245,6 +247,7 @@ public class ConsultaDAO implements IConsultaDAO {
           movimiento.setFecha(result.getTimestamp("FECHA"));
           movimiento.setStatus(result.getString("STATUS"));
           movimiento.setIdTipo(result.getInt("TIPO_MOVIMIENTO_ID"));
+          movimiento.setOperacion(result.getString("OPERACION"));
           movimiento.setIdChequera(result.getLong("CHEQUERA_ID"));
           movimiento.setSaldo(result.getDouble("SALDO"));
           
@@ -293,6 +296,7 @@ public class ConsultaDAO implements IConsultaDAO {
           movimiento.setFecha(result.getTimestamp("FECHA"));
           movimiento.setStatus(result.getString("STATUS"));
           movimiento.setIdTipo(result.getInt("TIPO_MOVIMIENTO_ID"));
+          movimiento.setOperacion(result.getString("OPERACION"));
           movimiento.setIdChequera(result.getLong("CHEQUERA_ID"));
           movimiento.setSaldo(result.getDouble("SALDO"));
           
@@ -303,7 +307,7 @@ public class ConsultaDAO implements IConsultaDAO {
       
     } catch (Exception e) {
       
-      System.out.println("Error en consultarDepositosFecha de ConsultaDAO: " + e);
+      System.out.println("Error en consultarRetirosFecha de ConsultaDAO: " + e);
       
     }
     
@@ -343,7 +347,7 @@ public class ConsultaDAO implements IConsultaDAO {
         + "WHERE M.CHEQUERA_ID = " + idChequera + " "
         + "AND M.FECHA BETWEEN TO_DATE ('01/01/" + anio + "', 'DD/MM/YYYY') "
         + "AND TO_DATE ('31/12/" + anio + "', 'DD/MM/YYYY') "
-        + "ORDER BY M.ID";
+        + "ORDER BY M.FECHA";
     
     String mensual = "SELECT * FROM MOVIMIENTOS M "
         + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
@@ -355,7 +359,7 @@ public class ConsultaDAO implements IConsultaDAO {
     String completa = "SELECT * FROM MOVIMIENTOS M "
         + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
         + " WHERE M.CHEQUERA_ID = " + idChequera + " "
-        + "ORDER BY M.ID";
+        + "ORDER BY M.FECHA";
     
     String sql = "";
     
@@ -427,6 +431,7 @@ public class ConsultaDAO implements IConsultaDAO {
           movimiento.setFecha(result.getTimestamp("FECHA"));
           movimiento.setStatus(result.getString("STATUS"));
           movimiento.setIdTipo(result.getInt("TIPO_MOVIMIENTO_ID"));
+          movimiento.setOperacion(result.getString("OPERACION"));
           movimiento.setIdChequera(result.getLong("CHEQUERA_ID"));
           movimiento.setSaldo(result.getDouble("SALDO"));
           movimiento.setOperacion(result.getString("OPERACION"));

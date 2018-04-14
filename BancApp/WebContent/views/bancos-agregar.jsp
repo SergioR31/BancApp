@@ -29,6 +29,39 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <div class="row">
+                <form:form action="/BancApp/insertarBanco">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Entidad</label>
+                        <input class="form-control" type="text" id="nombre_entidad" name="nombre_entidad" placeholder="Nombre de la Entidad" maxlength="20" required>
+                    </div>
+                </div>
+                <!-- /.col-lg-6 -->
+                
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Sucursal</label>
+                        <input class="form-control" type="text" id="nombre_sucursal" name="nombre_sucursal" placeholder="Nombre de la Sucursal" maxlength="20" required>
+                    </div>
+                </div>
+                <!-- /.col-lg-6 -->
+                
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Direccion</label>
+                        <input class="form-control" type="text" id="direccion" name="direccion" placeholder="Direccion de la Sucursal" maxlength="100" required>
+                    </div>
+                    
+                    <button class="btn btn-primary" type="submit">Agregar Banco</button>
+                    
+                </div>
+                <!-- /.col-lg-12 -->
+
+                </form:form>
+            </div>
+            <!-- /.row -->
  
         </div>
     
@@ -36,15 +69,6 @@
     <!-- /#wrapper -->
     
     <c:import url="/fragments/scripts.jsp"></c:import>
-    
-	<h1>${mensaje}</h1>
-	<form:form action="/BancApp/insertarBanco">
-		<input type="text" id="nombre_entidad" name="nombre_entidad" placeholder="Entidad" maxlength="20" required>
-		<input type="text" id="nombre_sucursal" name="nombre_sucursal" placeholder="Sucursal" maxlength="20" required>
-		<input type="text" id="direccion" name="direccion" placeholder="Direccion" maxlength="100" required>
-		
-		<button type="submit">Agregar Banco</button>
-	</form:form>
 	
 </body>
 </html>

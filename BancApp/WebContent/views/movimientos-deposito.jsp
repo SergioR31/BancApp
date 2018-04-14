@@ -29,6 +29,47 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <div class="row">
+                <form:form action="/BancApp/depositar">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Chequera de Deposito</label>
+                            <select class="form-control" name="idChequera">
+                                <c:forEach items="${chequeras }" var="chequera">
+                                    <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } -</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Fecha de Deposito</label>
+                            <input class="form-control" type="datetime-local" name="fechaDeposito" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Deposito" required>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Conepto</label>
+                            <input class="form-control" type="text" id="conepto" name="concepto" placeholder="Concepto" maxlength="100">
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <label>Monto</label>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">$</span>
+                            <input class="form-control" type="number" id="monto" name="monto" placeholder="Monto a Depositar" onKeyPress="if(this.value.length==10) return false;" maxlength="10" required>
+                            <span class="input-group-addon">.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary" type="submit">Depositar</button>
+                    </div>
+                </form:form>
+                
+            </div>
  
         </div>
     
@@ -36,24 +77,6 @@
     <!-- /#wrapper -->
     
     <c:import url="/fragments/scripts.jsp"></c:import>
-    
-	<form:form action="/BancApp/depositar">
-	
-	   <input type="datetime-local" name="fechaDeposito" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Deposito" required>
-	
-	   <select name="idChequera">
-          <c:forEach items="${chequeras }" var="chequera">
-              <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } -</option>
-          </c:forEach>
-        </select>
-        
-		<input type="number" id="monto" name="monto" placeholder="Monto" onKeyPress="if(this.value.length==10) return false;" maxlength="10" required>
-		
-		<input type="text" id="conepto" name="concepto" placeholder="Concepto" maxlength="100">
-		
-		<button type="submit">Depositar</button>
-		
-	</form:form>
 	
 </body>
 </html>

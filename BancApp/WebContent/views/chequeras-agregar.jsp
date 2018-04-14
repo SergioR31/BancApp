@@ -29,6 +29,51 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <div class="row">
+                <form:form action="/BancApp/insertarChequera">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Fecha Apertura</label>
+                        <input class="form-control" type="date" name="fechaApertura" step="1" min="2000-01-01" max="2018-04-10" placeholder="Fecha Apertura" required>
+                    </div>
+                    
+                    <label>Saldo</label>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon">$</span>
+                        <input class="form-control" type="number" id="saldoApertura" name="saldoApertura" placeholder="Saldo Apertura" onKeyPress="if(this.value.length==10) return false;" oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10" required>
+                        <span class="input-group-addon">.00</span>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-lg-6">
+                
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <select class="form-control" name="idCliente">
+                            <c:forEach items="${clientes }" var="cliente">
+                                <option value="${cliente.idCliente }">${cliente.nombre }</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Banco</label>
+                        <select class="form-control" name="idBanco">
+                            <c:forEach items="${bancos }" var="banco">
+                                <option value="${banco.idBanco }">${banco.entidad }</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-lg-12">
+                    <button class="btn btn-primary" type="submit">Agregar Chequera</button>
+                </div>
+                </form:form>
+            </div>
  
         </div>
     
@@ -36,28 +81,6 @@
     <!-- /#wrapper -->
     
     <c:import url="/fragments/scripts.jsp"></c:import>
-    
-	<form:form action="/BancApp/insertarChequera">
-	
-	   <input type="date" name="fechaApertura" step="1" min="2000-01-01" max="2018-04-01" placeholder="Fecha Apertura" required>
-	   
-		<input type="number" id="saldoApertura" name="saldoApertura" placeholder="Saldo Apertura" onKeyPress="if(this.value.length==10) return false;" oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10" required>
-		
-		<select name="idBanco">
-		  <c:forEach items="${bancos }" var="banco">
-		      <option value="${banco.idBanco }">${banco.entidad }</option>
-		  </c:forEach>
-		</select>
-		
-		<select name="idCliente">
-          <c:forEach items="${clientes }" var="cliente">
-          <option value="${cliente.idCliente }">${cliente.nombre }</option>
-          </c:forEach>
-        </select>
-		
-		
-		<button type="submit">Agregar Chequera</button>
-	</form:form>
 	
 </body>
 </html>

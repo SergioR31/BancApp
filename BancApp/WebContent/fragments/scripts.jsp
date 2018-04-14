@@ -12,12 +12,87 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
+    <!-- jQuery -->
+    <script src="<c:url value="/assets/vendor/jquery/jquery.min.js" />"  ></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<c:url value="/assets/vendor/bootstrap/js/bootstrap.min.js" />"  ></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="<c:url value="/assets/vendor/metisMenu/metisMenu.min.js" />"  ></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="<c:url value="/assets/vendor/raphael/raphael.min.js" />"  ></script>
+    <script src="<c:url value="/assets/vendor/morrisjs/morris.min.js" />"  ></script>
+    <%-- <script src="<c:url value="/assets/data/morris-data.js" />"  ></script> --%>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="<c:url value="/assets/dist/js/sb-admin-2.js" />"  ></script>
+    
     <script>
     var mensaje = '${mensaje}'
     
     if (mensaje != null && mensaje != "") {
         alert('${mensaje}');
     }
+    
+    var today = new Date();
+    var y = today.getFullYear();
+    var m = today.getMonth() + 1 ;
+    var d = today.getDate();
+    var h = today.getHours();
+    var mm = today.getMinutes();
+    var s = today.getSeconds();
+    
+    if (h < 10){
+    	h = "0"+h;
+    }
+    
+    if (m < 10){
+    	m = "0"+m;
+    }
+    
+    if(d < 10){
+    	d = "0"+d;
+    }
+    
+    if(s < 10 ){
+    	s = "0"+s;
+    }
+    
+    if (document.getElementById('hasta') != null){
+    	document.getElementById('hasta').value= y+"-"+m+"-"+d+"T"+h+":"+mm+":"+s ;
+    }
+    
+    console.log(y+"-"+m+"-"+d+"T"+h+":"+mm+":"+s);
+    
+    jQuery(document).ready(function(){
+    	
+    	var info = "Sin datos";
+    	var depositos = "Depositos";
+    	var label;
+    	
+    	if ($("#totalDepositos").val() == 0){
+    		label = info
+    	} else {
+    		label = depositos;
+    	}
+    	
+    	if ($("#donut-chart").html() != undefined){
+    		Morris.Donut({
+                element: 'donut-chart',
+                data: [{
+                    label: label,
+                    value: $("#totalDepositos").val()
+                }, {
+                    label: "Retiros",
+                    value: $("#totalRetiros").val()
+                }],
+                resize: true
+            });
+    	}
+    	
+    })
     
     function confirmarBorrarDB(){
         
@@ -73,27 +148,42 @@
         
         if (periodoselect.value == 'completa'){
             anioMovimientos.required = false;
-        } else{
+        }
+        
+        if (periodoselect.value == 'anual'){
             anioMovimientos.required = true;
         }
         
+        if (periodoselect.value == 'mensual'){
+        	anioMovimientos.required = true;
+        } 
     }
     
     function setValorChequera(){
         
-        var chequera = document.getElementById('id_Chequera');
+        var idchequera = document.getElementById('id_Chequera');
         
         var chequeraEC = document.getElementById('id_chequeraEC');
         var chequeraM = document.getElementById('id_chequeraMovimientos');
         var chequeraMP = document.getElementById('id_chequeraMovimientosP');
         
-        chequeraEC.value = chequera.value;
-        chequeraM.value = chequera.value;
-        chequeraMP.value = chequera.value;
+        if(idchequera.value == 'default' || idchequera.value == ''){
+            alert('Seleccione una chequera');
+            idchequera.focus();
+        }else{
+        
+        chequeraEC.value = idchequera.value;
+        chequeraM.value = idchequera.value;
+        chequeraMP.value = idchequera.value;
+        
+        }
         
     }
     
     function consultar(ruta){
+    	
+    	var anioMovimientos = document.getElementById('anioMovimientos');
+        var periodoselect = document.getElementById('periodo');
         
         var chequera = document.getElementById('id_Chequera');
         
@@ -112,55 +202,56 @@
         
         if(idchequera.value == 'default' || idchequera.value == ''){
             alert('Seleccione una chequera');
+            chequera.focus();
+        } else if(anioMovimientos.required == true && (anioMovimientos.value == 0 || anioMovimientos.value == '')) {
+        	alert('Ingrese año');
+        	anioMovimientos.focus();
         } else {
         
         if (ruta == 'mDepositos'){
             formMovimientos.action = "/BancApp/ConsultaMovimientos/depositos";
+            formMovimientos.submit();
         }
         
         if (ruta == 'mRetiros'){
             formMovimientos.action = "/BancApp/ConsultaMovimientos/retiros";
+            formMovimientos.submit();
         }
         
         if (ruta == 'mTodo'){
             formMovimientos.action = "/BancApp/ConsultaMovimientos/todos";
+            formMovimientos.submit();
         }
         
         
         if (ruta == 'mDepositosF'){
             formMovimientosF.action = "/BancApp/ConsultaMovimientos/depositos-rango-fecha";
-            console.log(formMovimientosF.action);
+            formMovimientosF.submit();
         }
         
         if (ruta == 'mRetirosF'){
             formMovimientosF.action = "/BancApp/ConsultaMovimientos/retiros-rango-fecha";
-            console.log(formMovimientosF.action);
+            formMovimientosF.submit();
         }
         
         if (ruta == 'mTodoF'){
             formMovimientosF.action = "/BancApp/ConsultaMovimientos/todos-rango-fecha";
-            console.log(formMovimientosF.action);
+            formMovimientosF.submit();
         }
         
         }
         
     }
     
+    function validarForm() {
+    	var idchequera = document.getElementById('id_Chequera');
+    	if(idchequera.value == 'default' || idchequera.value == ''){
+    		return false;
+    	}else{
+    		return true;
+    	}
+    }
+    
+    
     </script>
-
-    <!-- jQuery -->
-    <script src="<c:url value="/assets/vendor/jquery/jquery.min.js" />"  ></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<c:url value="/assets/vendor/bootstrap/js/bootstrap.min.js" />"  ></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="<c:url value="/assets/vendor/metisMenu/metisMenu.min.js" />"  ></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="<c:url value="/assets/vendor/raphael/raphael.min.js" />"  ></script>
-    <!-- <script src="<c:url value="/assets/vendor/morrisjs/morris.min.js" />"  ></script>  -->
-    <!-- <script src="<c:url value="/assets/data/morris-data.js" />"  ></script>  -->
-
-    <!-- Custom Theme JavaScript -->
-    <script src="<c:url value="/assets/dist/js/sb-admin-2.js" />"  ></script>
+    

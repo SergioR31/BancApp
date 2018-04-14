@@ -1,6 +1,6 @@
 $(function() {
 
-    Morris.Area({
+/*    Morris.Area({
         element: 'morris-area-chart',
         data: [{
             period: '2010 Q1',
@@ -59,24 +59,24 @@ $(function() {
         pointSize: 2,
         hideHover: 'auto',
         resize: true
-    });
+    });*/
 
     Morris.Donut({
-        element: 'morris-donut-chart',
+        element: 'donut-chart',
         data: [{
-            label: "Download Sales",
-            value: 12
+            label: "Sergio",
+            value: 40
         }, {
-            label: "In-Store Sales",
-            value: 30
+            label: "Sales",
+            value: 5
         }, {
             label: "Mail-Order Sales",
-            value: 20
+            value: 10
         }],
         resize: true
     });
 
-    Morris.Bar({
+/*    Morris.Bar({
         element: 'morris-bar-chart',
         data: [{
             y: '2006',
@@ -112,6 +112,6 @@ $(function() {
         labels: ['Series A', 'Series B'],
         hideHover: 'auto',
         resize: true
-    });
+    });*/
     
 });

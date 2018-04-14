@@ -1,6 +1,5 @@
 package bancapp.controllers;
 
-import java.lang.annotation.Repeatable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 
@@ -31,7 +30,7 @@ public class MainController {
  */
   
   @RequestMapping(value = {"/Home", ""}, method = RequestMethod.GET)
-  public String bancosInsertar(Model model) {
+  public String home(Model model) {
     
     return "home";
     

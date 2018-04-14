@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import bancapp.daos.interfaces.IChequeraDAO;
 import bancapp.daos.interfaces.IConsultaDAO;
+import bancapp.models.Chequera;
 import bancapp.models.Movimiento;
 import bancapp.services.interfaces.IConsultaService;
 
@@ -25,6 +26,9 @@ public class ConsultaService implements IConsultaService {
   
   @Autowired
   private IConsultaDAO consultaDAO;
+  
+  @Autowired
+  private IChequeraDAO chequeraDAO;
 
   @Override
   public ArrayList<Movimiento> consultarDepositos(long idChequera, String periodo, int anio, int mes)
@@ -65,9 +69,51 @@ public class ConsultaService implements IConsultaService {
     
     ArrayList<Movimiento> movimientosTodos = new ArrayList<>();
     
+    Chequera chequera = new Chequera();
+    
+    double saldoApertura = 0.0;
+    
+    int contador = 1;
+    
+    double saldo = 0.0;
+    
+    double saldoAnterior = 0.0;
+    
     try {
       
+      saldoApertura = chequeraDAO.consultarChequera(idChequera).getSaldoApertura();
+      
       movimientosTodos = consultaDAO.consultarTodos(idChequera, periodo, anio, mes);
+      
+      for (Movimiento movimiento: movimientosTodos) {
+        if (contador == 1) {
+          if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
+            saldo = saldoApertura - movimiento.getMonto();
+            saldoAnterior = saldo;
+            movimiento.setSaldo(saldo);
+          }
+          if (movimiento.getIdTipo() == 2 || movimiento.getIdTipo() == 4) {
+            saldo = saldoApertura + movimiento.getMonto();
+            saldoAnterior = saldo;
+            movimiento.setSaldo(saldo);
+          }
+          contador = 2;
+        } else {
+          if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
+            saldo = saldoAnterior - movimiento.getMonto();
+            saldoAnterior = saldo;
+            movimiento.setSaldo(saldo);
+          }
+        
+          if (movimiento.getIdTipo() == 2 || movimiento.getIdTipo() == 4) {
+            saldo = saldoAnterior + movimiento.getMonto();
+            saldoAnterior = saldo;
+            movimiento.setSaldo(saldo);
+          }
+        }
+        
+      }
+      
       
     } catch (Exception e) {
       System.out.println("Error en consultarTodos de consultaServicio: " + e);

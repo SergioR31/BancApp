@@ -29,31 +29,67 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Bancos
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Entidad</th>
+                                            <th>Sucursal</th>
+                                            <th>Direccion</th>
+                                            <th colspan="2">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${bancos }" var="banco">
+                                            <c:if test="${banco.status eq 'Disponible' }">
+                                            <tr>
+                                                <td>${banco.idBanco}</td>
+                                                <td>${banco.entidad}</td>
+                                                <td>${banco.sucursal}</td>
+                                                <td>${banco.direccion}</td>
+                                                <td>
+                                                    <form:form action="/BancApp/Bancos/modificar">
+                                                        <button class="btn btn-warning" name="idBanco" value="${banco.idBanco}">Modificar</button>
+                                                    </form:form>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-danger" onclick="confirmarEliminarBanco('${banco.entidad}' ,${banco.idBanco})">Eliminar</button>
+                                                </td>
+                                            </tr>
+                                            </c:if>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
  
         </div>
     
     </div>
-    <!-- /#wrapper -->
-    
-    <c:import url="/fragments/scripts.jsp"></c:import>
-    
-	<c:forEach items="${bancos }" var="banco">
-	   <h1>${banco.idBanco}</h1>
-	   <h2>${banco.entidad}</h2>
-	   <h3>${banco.sucursal}</h3>
-	   <h3>${banco.direccion}</h3>
-	   <h4>${banco.status}</h4>
-	   <form:form action="/BancApp/Bancos/modificar">
-	       <button name="idBanco" value="${banco.idBanco}">Modificar</button>
-	   </form:form>
-	   
-           <button onclick="confirmarEliminarBanco('${banco.entidad}' ,${banco.idBanco})">Eliminar</button>
-       
-	</c:forEach>
+    <!-- /#wrapper -->   
 	
 	<form:form id="formEliminar" name="bancos">
 	   <input id="id_banco" type="hidden" name="idBanco">
 	</form:form>
+	
+	<c:import url="/fragments/scripts.jsp"></c:import>
 	
 </body>
 </html>

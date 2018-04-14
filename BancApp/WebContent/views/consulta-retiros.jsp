@@ -24,11 +24,112 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Retiros por Fechas</h1>
+                    <h1 class="page-header">Retiros por Periodo</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Chequera
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="well well-sm">
+                                        <h2>Chequera: ${chequera.idChequera }</h2>
+                                        <h4>Clabe: ${chequera.clabe }</h4>
+                                        <h4>Fecha Apertura: ${chequera.fechaApertura }</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="well well-sm">
+                                        
+                                        <h4>Entidad Bancaria: ${chequera.nombreBanco }</h4>
+                                        <h4>Cliente: ${chequera.nombreCliente } ${chequera.apellodoPCliente }</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="well well-sm">
+                                        <h4>Saldo Apertura: ${chequera.saldoApertura }</h4>
+                                        <h4>Saldo Actual: ${chequera.saldo }</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="well well-sm">
+                                        <c:if test="${periodo eq 'completa'}">
+                                            <h3>Consulta ${periodo }</h3>
+                                        </c:if>
+                                        <c:if test="${anio != 0}">
+                                            <h3>Consulta ${periodo } ${mes }</h3>
+                                        </c:if>
+                                        <c:if test="${mes eq ''}">
+                                            <h3>Consulta ${periodo } ${anio }</h3>
+                                        </c:if>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Resumen
+                        </div>
+                        <div class="panel-body">
+                            <div id="donut-chart">
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Retiros
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Concepto</th>
+                                            <th>Monto</th>
+                                            <th>Fecha</th>
+                                            <th>Operacion</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <c:forEach items="${retiros }" var="retiro">
+                                            <c:if test="${retiro.status eq 'Realizado' }">
+                                                <tr>
+                                                    <td>${retiro.idMovimiento}</td>
+                                                    <td>${retiro.concepto }</td>
+                                                    <td>$${retiro.monto }0</td>
+                                                    <td>${retiro.fecha }</td>
+                                                    <td>${retiro.operacion }</td>
+                                                </tr>
+                                            </c:if>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
  
         </div>
     
@@ -37,34 +138,8 @@
     
     <c:import url="/fragments/scripts.jsp"></c:import>
     
-    <h1>${chequera.idChequera }</h1>
-    <h2>${chequera.nombreBanco }</h2>
-    <h2>${chequera.nombreCliente }</h2>
-    <h2>${chequera.apellodoPCliente }</h2>
-    <h2>Consulta ${periodo }</h2>
-    <h2>${anio }</h2>
-    <h2>${mes }</h2>
-    <h1>${totalRetiros }</h1>
-	<c:forEach items="${retiros }" var="retiro">
-	   <h1>${retiro.idMovimiento }</h1>
-	   <h2>${retiro.concepto }</h2>
-	   <h2>${retiro.monto }</h2>
-	   <h2>${retiro.fecha }</h2>
-	   <h2>${retiro.status }</h2>
-	   <h2>${retiro.idTipo }</h2>
-	   <h2>${retiro.idChequera }</h2>
-       <h2>${retiro.saldo }</h2>
-	   
-	</c:forEach>
-	
-	<script>
-	var mensaje = '${mensaje}';
-	
-	if (mensaje != null && mensaje != "") {
-		alert('${mensaje}')
-		
-	}
-	
-	</script>
+    <input type="hidden" id="totalDepositos" value="0">
+    <input type="hidden" id="totalRetiros" value="${totalRetiros }">
+    
 </body>
 </html>

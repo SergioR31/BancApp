@@ -29,6 +29,61 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Chequeras
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha Apertura</th>
+                                            <th>Saldo Apertura</th>
+                                            <th>Saldo Actual</th>
+                                            <th>CLABE</th>
+                                            <th>Titular</th>
+                                            <th>Banco</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${chequeras }" var="chequera">
+                                            <c:if test="${chequera.status eq 'Activa' }">
+                                            <tr>
+                                                <td>${chequera.idChequera }</td>
+                                                <td>${chequera.fechaApertura }</td>
+                                                <td>$${chequera.saldoApertura }0</td>
+                                                <td>$${chequera.saldo }0</td>
+                                                <td>${chequera.clabe }</td>
+                                                <td>${chequera.nombreCliente }</td>
+                                                <td>${chequera.nombreBanco }</td>
+
+                                                <td>
+                                                    <button class="btn btn-danger" onclick="confirmarEliminarChequera('${chequera.idChequera}', ${chequera.idChequera})">Eliminar</button>
+                                                </td>
+                                            </tr>
+                                            </c:if>
+                                        </c:forEach>
+                                        <form:form id="formEliminar" name="chequeras">
+                                            <input id="id_chequera" type="hidden" name="idChequera">
+                                        </form:form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
  
         </div>
     
@@ -36,26 +91,6 @@
     <!-- /#wrapper -->
     
     <c:import url="/fragments/scripts.jsp"></c:import>
-    
-	<c:forEach items="${chequeras }" var="chequera">
-	   <h1>Chequera: ${chequera.idChequera }</h1>
-	   <h2>Saldo de Apertura: ${chequera.saldoApertura }</h2>
-	   <h2>Fecha de Apertura: ${chequera.fechaApertura }</h2>
-	   <h2>Saldo Actual: ${chequera.saldo }</h2>
-	   <h2>Status: ${chequera.status }</h2>
-	   <h2>ID Banco: ${chequera.idBanco }</h2>
-	   <h2>Entidad Bancaria: ${chequera.nombreBanco }</h2>
-	   <h2>ID Cliente: ${chequera.idCliente }</h2>
-       <h2>Titular de Chequera: ${chequera.nombreCliente }</h2>
-       <h2>CLABE: ${chequera.clabe }</h2>
-	   
-	   <button onclick="confirmarEliminarChequera('${chequera.idChequera}', ${chequera.idChequera})">Eliminar</button>
-       
-	</c:forEach>
-	
-	<form:form id="formEliminar" name="chequeras">
-	   <input id="id_chequera" type="hidden" name="idChequera">
-	</form:form>
 	
 </body>
 </html>

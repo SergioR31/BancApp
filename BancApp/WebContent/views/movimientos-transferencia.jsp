@@ -29,6 +29,49 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <div class="row">
+                <form:form action="/BancApp/transferir">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Chequera de Retiro</label>
+                            <select class="form-control" name="idChequera">
+                                <c:forEach items="${chequeras }" var="chequera">
+                                    <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } -</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Fecha de Transferencia</label>
+                            <input class="form-control" type="datetime-local" name="fechaTransferencia" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Transferencia" required>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>CLABE</label>
+                            <input class="form-control" type="number" id="clabe" name="clabe" placeholder="CLABE de Cuenta Receptora" onKeyPress="if(this.value.length==13) return false;" maxlength="13" required>
+                        </div>
+                        
+                        <label>Monto</label>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">$</span>
+                            <input class="form-control" type="number" id="monto" name="monto" placeholder="Monto a Transferir" onKeyPress="if(this.value.length==10) return false;" maxlength="10" required>
+                            <span class="input-group-addon">.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Concepto</label>
+                            <input class="form-control" type="text" id="conepto" name="concepto" placeholder="Concepto de Transferencia" maxlength="100">
+                        </div>
+                        
+                        <button class="btn btn-primary" type="submit">Transferir</button>
+                    </div>
+                </form:form>
+            </div>
  
         </div>
     
@@ -36,26 +79,6 @@
     <!-- /#wrapper -->
     
     <c:import url="/fragments/scripts.jsp"></c:import>
-    
-	<form:form action="/BancApp/transferir">
-	   
-	   <input type="datetime-local" name="fechaTransferencia" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Transferencia" required>
-	
-	   <select name="idChequera">
-          <c:forEach items="${chequeras }" var="chequera">
-              <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } -</option>
-          </c:forEach>
-        </select>
-        
-		<input type="number" id="clabe" name="clabe" placeholder="CLABE" onKeyPress="if(this.value.length==13) return false;" maxlength="13" required>
-		
-		<input type="number" id="monto" name="monto" placeholder="Monto" onKeyPress="if(this.value.length==10) return false;" maxlength="10" required>
-		
-		<input type="text" id="conepto" name="concepto" placeholder="Concepto" maxlength="100">
-		
-		<button type="submit">Transferir</button>
-		
-	</form:form>
 	
 </body>
 </html>
