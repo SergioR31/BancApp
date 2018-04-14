@@ -6,6 +6,7 @@ package bancapp.daos.interfaces;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import bancapp.models.Estadisticas;
 import bancapp.models.Movimiento;
 
 /**
@@ -31,5 +32,7 @@ public interface IConsultaDAO {
   
   public ArrayList<Movimiento> consultarTodosFecha(
       long idChequera, String desde, String hasta) throws Exception;
+  
+  public Estadisticas consultarEstadisticas() throws Exception;
 
 }

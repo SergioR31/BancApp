@@ -18,6 +18,8 @@
             </div>
             <!-- /.navbar-header -->
             
+            
+            
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -37,6 +39,8 @@
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
+            
+            <span id="fecha" class="nav navbar-top-links navbar-right dropdown-toggle" style="margin-top: 5px;"></span>
             
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -97,9 +101,6 @@
                         </li>
                         <li>
                             <a href="/BancApp/ConsultaMovimientos"><i class="fa fa-list-alt fa-fw"></i> Consultas</a>
-                        </li>
-                        <li>
-                            <a onclick="confirmarBorrarDB()"><i class="fa fa-eraser fa-fw"></i> Borrar DB</a>
                         </li>
                     </ul>
                 </div>

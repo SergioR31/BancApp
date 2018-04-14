@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import bancapp.daos.interfaces.IChequeraDAO;
 import bancapp.daos.interfaces.IConsultaDAO;
 import bancapp.models.Chequera;
+import bancapp.models.Estadisticas;
 import bancapp.models.Movimiento;
 import bancapp.services.interfaces.IConsultaService;
 
@@ -249,6 +250,23 @@ public class ConsultaService implements IConsultaService {
       System.out.println("Error en consultarTodosFecha de ConsultaServicio: " + e);
     }
     return todosFecha;
+  }
+
+  @Override
+  public Estadisticas consultarEstadisticas() throws Exception {
+    // TODO Auto-generated method stub
+    
+    Estadisticas estadisticas = new Estadisticas();
+    
+    try {
+      
+      estadisticas = consultaDAO.consultarEstadisticas();
+      
+    } catch (Exception e) {
+      System.out.println("Error en consultarEstadisticas de ConsultaServicio: " + e);
+    }
+    
+    return estadisticas;
   }
 
 }

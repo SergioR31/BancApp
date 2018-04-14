@@ -1,6 +1,7 @@
 package bancapp.services.interfaces;
 
 import bancapp.models.Chequera;
+import bancapp.models.Estadisticas;
 import bancapp.models.Movimiento;
 
 import java.sql.Timestamp;
@@ -31,4 +32,6 @@ public interface IConsultaService {
   
   public ArrayList<Movimiento> consultarTodosFecha(
       long idChequera, String desde, String hasta) throws Exception;
+  
+  public Estadisticas consultarEstadisticas() throws Exception;
 }

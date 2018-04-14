@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.RedirectView;
 
+import bancapp.models.Estadisticas;
+import bancapp.services.interfaces.IConsultaService;
+
 /**
  * Controller Principal.
  * @author SergioRamos
@@ -23,6 +26,9 @@ public class MainController {
   @Autowired
   private JdbcTemplate jdbcTemplate;
   
+  @Autowired
+  private IConsultaService consultaService;
+  
   /**
  * Mapeo de metodo para pagina principal de la aplicacion.  
  * @param model Define atributos para el JSP.
@@ -31,6 +37,19 @@ public class MainController {
   
   @RequestMapping(value = {"/Home", ""}, method = RequestMethod.GET)
   public String home(Model model) {
+    
+    Estadisticas estadisticas = new Estadisticas();
+    
+    try {
+      
+      estadisticas = consultaService.consultarEstadisticas();
+      
+    } catch (Exception e) {
+      System.out.println("Error en home: " + e);
+    }
+    
+    model.addAttribute("estadisticas", estadisticas);
+    model.addAttribute("password", "SergioR31");
     
     return "home";
     

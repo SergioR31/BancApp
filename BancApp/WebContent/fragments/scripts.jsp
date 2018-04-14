@@ -64,6 +64,10 @@
     	document.getElementById('hasta').value= y+"-"+m+"-"+d+"T"+h+":"+mm+":"+s ;
     }
     
+    var style = "text-decoration:none;";
+    
+    document.getElementById('fecha').innerHTML = "<a style="+style+"><h4>Hoy: " + d +"/" + m + "/" + y + " " +h+":"+mm+":"+s + "</h4></a>";
+    
     console.log(y+"-"+m+"-"+d+"T"+h+":"+mm+":"+s);
     
     jQuery(document).ready(function(){
@@ -98,7 +102,12 @@
         
         if (confirm("Desea elimiar todos los datos de la base de datos? \n -Se borraran todos los Movimientos y Chequeras, tambien los catalogos de Bancos, Clientes.")) {
             if (confirm("Estas seguro? \n -Todos los datos se perderan y no podran recuperarse.")){
-                location.href='/BancApp/BorrarDB';
+            	var password = prompt('Ingresa contraseña');
+            	if (password == '${password}'){
+            		location.href='/BancApp/BorrarDB';
+            	} else {
+            		alert("Contraseña Incorrecta. No se elimina la base de datos.");
+            	}
             }
         }
     }

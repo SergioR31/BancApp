@@ -5,6 +5,7 @@ import bancapp.daos.interfaces.IConsultaDAO;
 import bancapp.daos.interfaces.IMovimientoDAO;
 import bancapp.models.Chequera;
 import bancapp.models.Cliente;
+import bancapp.models.Estadisticas;
 import bancapp.models.Movimiento;
 
 import java.sql.CallableStatement;
@@ -448,6 +449,39 @@ public class ConsultaDAO implements IConsultaDAO {
     }
     
     return todosFecha;
+  }
+
+  @Override
+  public Estadisticas consultarEstadisticas() throws Exception {
+    // TODO Auto-generated method stub
+    
+    String sql = "SELECT  (SELECT COUNT(*) FROM BANCOS) AS Numero_Bancos, "
+        + "(SELECT COUNT(*) FROM CLIENTES) AS Numero_Clientes, " 
+        + "(SELECT COUNT(*) FROM CHEQUERAS) AS Numero_Chequeras " 
+        + "FROM    dual";
+    
+    Estadisticas estadisticas = new Estadisticas();
+    
+    try {
+      
+      estadisticas = jdbcTemplate.query(sql, new RowMapper<Estadisticas>() {
+        
+        @Override
+        public Estadisticas mapRow(ResultSet result, int rowNum) throws SQLException {
+          Estadisticas estadisticas = new Estadisticas();
+          estadisticas.setNumeroBancos(result.getInt("Numero_Bancos"));
+          estadisticas.setNumeroClientes(result.getInt("Numero_Clientes"));
+          estadisticas.setNumeroChequeras(result.getInt("Numero_Chequeras"));
+          return estadisticas;
+        }
+        
+      }).get(0);
+      
+    } catch (Exception e) {
+      System.out.println("Error en consultarEstadisticas de ConsultaDAO: " + e);
+    }
+    
+    return estadisticas;
   }
 
 }
