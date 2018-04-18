@@ -49,7 +49,7 @@
                             <!-- /.panel-info -->
                             
                             <div class="panel-group" id="accordion">
-                                <div class="panel panel-default">
+<%--                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">Estado de Cuenta</a>
@@ -57,7 +57,7 @@
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse" aria-expanded="true" style="">
                                         <div class="panel-body">
-                                            <form:form action="/BancApp/Consultar/estado-de-cuenta" onsubmit="event.preventDefault(); validarForm();">
+                                            <form:form id="formEstadoCuenta" onsubmit="event.preventDefault(); validarForm();">
                                             
                                                 <input id="id_chequeraEC" type="hidden" name="idChequera">
                                                 
@@ -89,21 +89,21 @@
                                                 </div>
                                                 
                                                 <div class="col-lg-12">
-                                                    <button class="btn btn-primary" type="submit" onclick="setValorChequera()">Estado de Cuenta</button>
+                                                    <button class="btn btn-primary" onclick="consultar('estado-cuenta')">Estado de Cuenta</button>
                                                 </div>
                                                 
                                                 
                                             </form:form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --%>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" class="collapsed">Por periodo</a>
                                         </h4>
                                     </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="true" style="">
+                                    <div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true" style="">
                                         <div class="panel-body">
                                             <form:form id="formMovimientos" onsubmit="event.preventDefault(); validarForm();">
                                                 <input id="id_chequeraMovimientos" type="hidden" name="idChequera">

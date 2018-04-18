@@ -166,7 +166,7 @@ public class MovimientosController {
       
       cliente = clienteService.consultarCliente(chequera.getIdCliente());
       
-      mensaje += mensaje + "por concepto de " + concepto + ". con fecha y hora: " + fechaRetiro;
+      mensaje += mensaje + ". Por concepto de " + concepto + ". Con fecha : " + fechaRetiro;
       
    // creates a simple e-mail object
       SimpleMailMessage email = new SimpleMailMessage();
@@ -233,7 +233,7 @@ public class MovimientosController {
       
       cliente = clienteService.consultarCliente(chequera.getIdCliente());
       
-      mensaje += mensaje + "por concepto de " + concepto + ". con fecha y hora: " + fechaDeposito;
+      mensaje += mensaje + ". Por concepto de " + concepto + ". Con fecha : " + fechaDeposito;
       
       // creates a simple e-mail object
          SimpleMailMessage email = new SimpleMailMessage();
@@ -303,7 +303,7 @@ public class MovimientosController {
       
       cliente = clienteService.consultarCliente(chequera.getIdCliente());
       
-      mensaje += mensaje + "por concepto de " + concepto + ". con fecha y hora: " + fechaTransferencia;
+      mensaje += mensaje + ". Por concepto de " + concepto + ". Con fecha : " + fechaTransferencia;
       
       // creates a simple e-mail object
       SimpleMailMessage email = new SimpleMailMessage();

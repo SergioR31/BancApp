@@ -11,8 +11,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import bancapp.daos.interfaces.IChequeraDAO;
-import bancapp.daos.interfaces.IConsultaDAO;
+import bancapp.daos.interfaces.IchequeraDao;
+import bancapp.daos.interfaces.IconsultaDao;
 import bancapp.models.Chequera;
 import bancapp.models.Estadisticas;
 import bancapp.models.Movimiento;
@@ -26,10 +26,10 @@ import bancapp.services.interfaces.IConsultaService;
 public class ConsultaService implements IConsultaService {
   
   @Autowired
-  private IConsultaDAO consultaDAO;
+  private IconsultaDao consultaDAO;
   
   @Autowired
-  private IChequeraDAO chequeraDAO;
+  private IchequeraDao chequeraDAO;
 
   @Override
   public ArrayList<Movimiento> consultarDepositos(long idChequera, String periodo, int anio, int mes)

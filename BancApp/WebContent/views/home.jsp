@@ -104,7 +104,10 @@
             
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <button type="button" onclick="confirmarBorrarDB()" class="btn btn-outline btn-danger btn-lg btn-block"><i class="fa fa-eraser fa-fw"></i>   Borrar DB</button>
+                <form:form id="borrarDBForm" onsubmit="event.preventDefault(); confirmarBorrarDB();">
+                    <input id="password" name="password" type="hidden">
+                    <button type="submit" class="btn btn-outline btn-danger btn-lg btn-block"><i class="fa fa-eraser fa-fw"></i>   Borrar DB</button>
+                </form:form>
                 </div>
             </div>
  

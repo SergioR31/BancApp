@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import bancapp.models.Estadisticas;
@@ -49,7 +51,6 @@ public class MainController {
     }
     
     model.addAttribute("estadisticas", estadisticas);
-    model.addAttribute("password", "SergioR31");
     
     return "home";
     
@@ -60,24 +61,42 @@ public class MainController {
    * @param model Define atributos para el JSP.
    * @return
    */
-  @RequestMapping(value = "/BorrarDB", method = RequestMethod.GET)
-  public RedirectView borrarDB(Model model) {
+  @RequestMapping(value = "/BorrarDB")
+  public RedirectView borrarDB(
+      @RequestParam("password") String password,
+      Model model,
+      RedirectAttributes attributes) {
     
+    String pass = "SergioR31";
     String mensaje = "";
       
     Connection conection = null;
       
     CallableStatement callableStatement = null;
+    
+    System.out.println("Password Ingresado: " +password);
       
     try {
       
-      conection = jdbcTemplate.getDataSource().getConnection();
+      if (password.equals(pass)) {
+      
+        conection = jdbcTemplate.getDataSource().getConnection();
         
-      callableStatement = conection.prepareCall("{CALL LIMPIAR_DB()}");
+        callableStatement = conection.prepareCall("{CALL LIMPIAR_DB()}");
         
-      callableStatement.executeUpdate();
+        callableStatement.executeUpdate();
         
-      mensaje = "Base de Datos limpiada/reiniciada con exito";
+        mensaje = "Base de Datos limpiada/reiniciada con exito";
+        
+        System.out.println("Password Correcto");
+        
+      } else {
+        
+        mensaje = "Contraseña Incorrecta.";
+        
+        System.out.println("Password Incorrecto");
+        
+      }
       
     } catch (Exception e) {
       
@@ -87,9 +106,9 @@ public class MainController {
       
     }
     
-    model.addAttribute("mensaje", mensaje);
+    attributes.addFlashAttribute("mensaje", mensaje);
     
-    return new RedirectView ("Home");
+    return new RedirectView("Home");
     
   }
   

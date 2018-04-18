@@ -61,7 +61,7 @@
                                                 <td>$${chequera.saldoApertura }0</td>
                                                 <td>$${chequera.saldo }0</td>
                                                 <td>${chequera.clabe }</td>
-                                                <td>${chequera.nombreCliente }</td>
+                                                <td>${chequera.nombreCliente } ${chequera.apellodoPCliente }</td>
                                                 <td>${chequera.nombreBanco }</td>
 
                                                 <td>

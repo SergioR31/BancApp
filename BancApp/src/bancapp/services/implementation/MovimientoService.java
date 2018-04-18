@@ -1,7 +1,7 @@
 package bancapp.services.implementation;
 
-import bancapp.daos.interfaces.IChequeraDAO;
-import bancapp.daos.interfaces.IMovimientoDAO;
+import bancapp.daos.interfaces.IchequeraDao;
+import bancapp.daos.interfaces.ImovimientoDao;
 import bancapp.models.Chequera;
 import bancapp.models.Movimiento;
 import bancapp.services.interfaces.IChequeraService;
@@ -23,10 +23,10 @@ import org.springframework.stereotype.Service;
 public class MovimientoService implements IMovimientoService {
   
   @Autowired
-  private IMovimientoDAO movimientoDAO;
+  private ImovimientoDao movimientoDAO;
   
   @Autowired
-  private IChequeraDAO chequeraDAO;
+  private IchequeraDao chequeraDAO;
 
   /* (non-Javadoc)
    * @see bancapp.services.interfaces.IChequeraService#insertarChequera(bancapp.models.Chequera)

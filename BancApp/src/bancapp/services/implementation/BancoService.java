@@ -1,6 +1,6 @@
 package bancapp.services.implementation;
 
-import bancapp.daos.interfaces.IBancoDAO;
+import bancapp.daos.interfaces.IbancoDao;
 import bancapp.models.Banco;
 import bancapp.services.interfaces.IBancoService;
 
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class BancoService implements IBancoService {
   
   @Autowired
-  private IBancoDAO bancoDAO;
+  private IbancoDao bancoDAO;
 
   /* (non-Javadoc)
    * @see bancapp.services.interfaces.IBancoService#insertarBanco(bancapp.models.Banco)

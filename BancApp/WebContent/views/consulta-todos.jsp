@@ -63,6 +63,9 @@
                                         <c:if test="${anio != 0}">
                                             <h3>Consulta ${periodo } ${anio }</h3>
                                         </c:if>
+                                        <c:if test="${periodo eq 'completa'}">
+                                            <h3>Consulta ${periodo }</h3>
+                                        </c:if>
                                         <c:if test="${mes eq ''}">
                                             <h3>Mes: ${mes }</h3>
                                         </c:if>
@@ -105,7 +108,9 @@
                                             <th>Monto</th>
                                             <th>Fecha</th>
                                             <th>Operacion</th>
-                                            <th>Saldo</th>
+                                            <c:if test="${periodo eq 'completa'}">
+                                                <th>Saldo</th>
+                                            </c:if>
                                         </tr>
                                     </thead>
                                     
@@ -118,7 +123,9 @@
                                                     <td>$${movimiento.monto }0</td>
                                                     <td>${movimiento.fecha }</td>
                                                     <td>${movimiento.operacion }</td>
-                                                    <td>$${movimiento.saldo }0</td>
+                                                    <c:if test="${periodo eq 'completa'}">
+                                                        <td>$${movimiento.saldo }0</td>
+                                                    </c:if>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>

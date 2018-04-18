@@ -29,6 +29,99 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Chequera
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="well well-sm">
+                                        <h2>Chequera: ${chequera.idChequera }</h2>
+                                        <h4>Clabe: ${chequera.clabe }</h4>
+                                        <h4>Fecha Apertura: ${chequera.fechaApertura }</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="well well-sm">
+                                        
+                                        <h4>Entidad Bancaria: ${chequera.nombreBanco }</h4>
+                                        <h4>Cliente: ${chequera.nombreCliente } ${chequera.apellodoPCliente }</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="well well-sm">
+                                        <h4>Saldo Apertura: ${chequera.saldoApertura }</h4>
+                                        <h4>Saldo Actual: ${chequera.saldo }</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="well well-sm">
+                                        <h3>Etado de cuenta ${mes } ${anio }</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Resumen
+                        </div>
+                        <div class="panel-body">
+                            <div id="donut-chart">
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Movimientos
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Concepto</th>
+                                            <th>Monto</th>
+                                            <th>Fecha</th>
+                                            <th>Operacion</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <c:forEach items="${movimientos }" var="movimiento">
+                                            <c:if test="${movimiento.status eq 'Realizado' }">
+                                                <tr>
+                                                    <td>${movimiento.idMovimiento}</td>
+                                                    <td>${movimiento.concepto }</td>
+                                                    <td>$${movimiento.monto }0</td>
+                                                    <td>${movimiento.fecha }</td>
+                                                    <td>${movimiento.operacion }</td>
+                                                </tr>
+                                            </c:if>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
  
         </div>
     
@@ -37,35 +130,8 @@
     
     <c:import url="/fragments/scripts.jsp"></c:import>
     
-    <h1>${chequera.idChequera }</h1>
-    <h2>${chequera.nombreBanco }</h2>
-    <h2>${chequera.nombreCliente }</h2>
-    <h2>${chequera.apellodoPCliente }</h2>
-    <h2>Saldo Apertura: ${chequera.saldoApertura }</h2>
-    <h2>Saldo Actual: ${chequera.saldo }</h2>
-    <h2>Clabe: ${chequera.clabe }</h2>
-    <h2>Consulta ${periodo }</h2>
-    <c:if test="${anio != 0}">
-        <h2>Año: ${anio }</h2>
-    </c:if>
-    <c:if test="${mes eq ''}">
-        <h2>Mes: ${mes }</h2>
-    </c:if>
-    <h1>Depositos: ${totalDepositos }</h1>
-    <h1>Retiros: ${totalRetiros }</h1>
-    
-	<c:forEach items="${movimientos }" var="movimiento">
-	   <h1>${movimiento.idMovimiento }</h1>
-	   <h2>${movimiento.concepto }</h2>
-	   <h2>Monto: ${movimiento.monto }</h2>
-	   <h2>${movimiento.fecha }</h2>
-	   <h2>${movimiento.status }</h2>
-	   <h2>${movimiento.operacion }</h2>
-	   <h2>${movimiento.idTipo }</h2>
-	   <h2>${movimiento.idChequera }</h2>
-       <h2> Saldo: ${movimiento.saldo }</h2>
-	   
-	</c:forEach>
+    <input type="hidden" id="totalDepositos" value="${totalDepositos }">
+    <input type="hidden" id="totalRetiros" value="${totalRetiros }">
 	
 </body>
 </html>

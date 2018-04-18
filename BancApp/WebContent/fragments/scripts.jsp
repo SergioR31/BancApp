@@ -52,6 +52,10 @@
     	m = "0"+m;
     }
     
+    if (mm < 10){
+        mm = "0"+mm;
+    }
+    
     if(d < 10){
     	d = "0"+d;
     }
@@ -100,17 +104,47 @@
     
     function confirmarBorrarDB(){
         
+        var password = document.getElementById('password');
+        
+        var form = document.getElementById('borrarDBForm');
+        
         if (confirm("Desea elimiar todos los datos de la base de datos? \n -Se borraran todos los Movimientos y Chequeras, tambien los catalogos de Bancos, Clientes.")) {
             if (confirm("Estas seguro? \n -Todos los datos se perderan y no podran recuperarse.")){
-            	var password = prompt('Ingresa contraseña');
-            	if (password == '${password}'){
-            		location.href='/BancApp/BorrarDB';
+            	
+            	var pass = prompt('Ingresa contraseña');
+            	
+            	password.value = pass;
+            	
+            	console.log("form action: " + form.action);
+            	
+            	if (pass == '' || pass == null){
+            		
+            		console.log("pass empty ");
+            		
+                    return false;
+                    
             	} else {
-            		alert("Contraseña Incorrecta. No se elimina la base de datos.");
+            		
+            		console.log("pass not empty " + password.value);
+            		
+            		console.log("form action: " + form.action);
+            		
+            		form.action="/BancApp/BorrarDB";
+            		
+            		form.submit();
+            		
+            		console.log("form action: " + form.action);
+
+            		return true;
             	}
+            } else {
+            	return false;
             }
+        } else {
+        	return false;
         }
     }
+    
     
     function confirmarEliminarBanco(entidad, idBanco){
         
@@ -181,7 +215,7 @@
             idchequera.focus();
         }else{
         
-        chequeraEC.value = idchequera.value;
+        /* chequeraEC.value = idchequera.value; */
         chequeraM.value = idchequera.value;
         chequeraMP.value = idchequera.value;
         
@@ -200,17 +234,17 @@
         var chequeraM = document.getElementById('id_chequeraMovimientos');
         var chequeraMP = document.getElementById('id_chequeraMovimientosP');
         
-        chequeraEC.value = chequera.value;
+        /* chequeraEC.value = chequera.value; */
         chequeraM.value = chequera.value;
         chequeraMP.value = chequera.value;
         
+        var formEstadoCuenta = document.getElementById('formEstadoCuenta');
         var formMovimientos = document.getElementById('formMovimientos');
         var formMovimientosF = document.getElementById('formMovimientosF');
         
         var idchequera = document.getElementById('id_Chequera');
         
         if(idchequera.value == 'default' || idchequera.value == ''){
-            alert('Seleccione una chequera');
             chequera.focus();
         } else if(anioMovimientos.required == true && (anioMovimientos.value == 0 || anioMovimientos.value == '')) {
         	alert('Ingrese año');
@@ -248,19 +282,35 @@
             formMovimientosF.submit();
         }
         
+        if (ruta == 'estado-cuenta'){
+        	formEstadoCuenta.action= "/BancApp/Consultar/estado-de-cuenta";
+        	formEstadoCuenta.submit();
+        }
+        
         }
         
     }
     
     function validarForm() {
-    	var idchequera = document.getElementById('id_Chequera');
-    	if(idchequera.value == 'default' || idchequera.value == ''){
-    		return false;
-    	}else{
-    		return true;
-    	}
-    }
-    
+    	
+        var idchequera = document.getElementById('id_Chequera');
+        
+        var chequeraEC = document.getElementById('id_chequeraEC');
+        var chequeraM = document.getElementById('id_chequeraMovimientos');
+        var chequeraMP = document.getElementById('id_chequeraMovimientosP');
+        
+        if(idchequera.value == 'default' || idchequera.value == ''){
+            alert('Seleccione una chequera');
+            idchequera.focus();
+            return false;
+        } else {
+        
+        /* chequeraEC.value = idchequera.value; */
+        chequeraM.value = idchequera.value;
+        chequeraMP.value = idchequera.value;
+        return true;
+        }
+    }   
     
     </script>
     

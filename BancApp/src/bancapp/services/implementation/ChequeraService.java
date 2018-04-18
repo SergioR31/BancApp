@@ -1,6 +1,6 @@
 package bancapp.services.implementation;
 
-import bancapp.daos.interfaces.IChequeraDAO;
+import bancapp.daos.interfaces.IchequeraDao;
 import bancapp.models.Chequera;
 import bancapp.services.interfaces.IChequeraService;
 
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class ChequeraService implements IChequeraService {
   
   @Autowired
-  private IChequeraDAO chequeraDAO;
+  private IchequeraDao chequeraDAO;
 
   /* (non-Javadoc)
    * @see bancapp.services.interfaces.IChequeraService#insertarChequera(bancapp.models.Chequera)

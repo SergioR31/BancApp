@@ -1,6 +1,6 @@
 package bancapp.services.implementation;
 
-import bancapp.daos.interfaces.IClienteDAO;
+import bancapp.daos.interfaces.IclienteDao;
 import bancapp.models.Cliente;
 import bancapp.services.interfaces.IClienteService;
 
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class ClienteService implements IClienteService {
   
   @Autowired
-  private IClienteDAO clienteDAO;
+  private IclienteDao clienteDAO;
 
   /* (non-Javadoc)
    * @see bancapp.services.interfaces.IClienteService#insertarCliente(bancapp.models.Cliente)
