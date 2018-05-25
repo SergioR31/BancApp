@@ -53,7 +53,9 @@
                         <label>Cliente</label>
                         <select class="form-control" name="idCliente">
                             <c:forEach items="${clientes }" var="cliente">
-                                <option value="${cliente.idCliente }">${cliente.nombre }</option>
+                                <c:if test="${cliente.status eq 'Disponible' }">
+                                    <option value="${cliente.idCliente }">${cliente.nombre } ${cliente.apellidoPaterno }</option>
+                                </c:if>    
                             </c:forEach>
                         </select>
                     </div>
@@ -62,7 +64,9 @@
                         <label>Banco</label>
                         <select class="form-control" name="idBanco">
                             <c:forEach items="${bancos }" var="banco">
-                                <option value="${banco.idBanco }">${banco.entidad }</option>
+                                <c:if test="${banco.status eq 'Disponible' }">
+                                    <option value="${banco.idBanco }">${banco.entidad }</option>
+                                </c:if>
                             </c:forEach>
                         </select>
                     </div>

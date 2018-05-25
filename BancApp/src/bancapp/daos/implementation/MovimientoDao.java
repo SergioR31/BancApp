@@ -131,7 +131,7 @@ public class MovimientoDao implements ImovimientoDao {
 
       callableStatement.executeUpdate();
       
-      mensaje = "Transferencia realizado con exito";
+      mensaje = "Transferencia realizada con exito";
       
       
     } catch (Exception e) {

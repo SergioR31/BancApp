@@ -76,7 +76,7 @@
                         
                         <div class="form-group">
                             <label>Correo</label>
-                            <input class="form-control" type="text" id="correo" name="correo" placeholder="Correo" maxlength="30" required>
+                            <input class="form-control" type="email" id="correo" name="correo" placeholder="Correo" maxlength="30" required>
                         </div>
                     </div>
                     <!-- /.col-lg-6 -->

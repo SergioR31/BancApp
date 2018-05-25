@@ -57,8 +57,29 @@ public class BancoService implements IBancoService {
     
     String respuesta = "";
     
+    ArrayList<Banco> bancos = new ArrayList<Banco>();
+    
+    boolean actualizarBanco = false;
+    
     try {
-      respuesta = bancoDAO.insertarBanco(banco);
+      
+      bancos = (ArrayList<Banco>) bancoDAO.listarBancos();
+      
+      for (Banco bancodb : bancos) {
+        if (banco.getEntidad().equals(bancodb.getEntidad())) {
+          banco.setIdBanco(bancodb.getIdBanco());
+          actualizarBanco = true;
+        }
+      }
+      
+      if (actualizarBanco) {
+        banco.setStatus("Disponible");
+        bancoDAO.modificarBanco(banco);
+        respuesta = "Banco ya existia en DB, informacion y status actualizados.";
+      } else {
+        respuesta = bancoDAO.insertarBanco(banco);
+      }
+      
     } catch (Exception e) {
       System.out.println("Error en insertarBanco BancoService: " + e);
     }
@@ -70,6 +91,8 @@ public class BancoService implements IBancoService {
   public String modificarBanco(Banco banco) throws Exception {
     
     String respuesta = "";
+    
+    banco.setStatus("Disponible");
     
     try {
       respuesta = bancoDAO.modificarBanco(banco);

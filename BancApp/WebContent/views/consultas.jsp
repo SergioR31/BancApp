@@ -98,12 +98,12 @@
                                     </div>
                                 </div> --%>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading">
+                                    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" class="collapsed">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" class="collapsed">Por periodo</a>
+                                            Por periodo
                                         </h4>
                                     </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true" style="">
+                                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="true" style="">
                                         <div class="panel-body">
                                             <form:form id="formMovimientos" onsubmit="event.preventDefault(); validarForm();">
                                                 <input id="id_chequeraMovimientos" type="hidden" name="idChequera">
@@ -163,9 +163,9 @@
                                     
                                 </div>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading">
+                                    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" class="collapsed">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" class="collapsed">Por fechas</a>
+                                            Por fechas
                                         </h4>
                                     </div>
                                     

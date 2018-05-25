@@ -442,9 +442,10 @@ public class ConsultaDao implements IconsultaDao {
   @Override
   public Estadisticas consultarEstadisticas() throws Exception {
     
-    String sql = "SELECT  (SELECT COUNT(*) FROM BANCOS) AS Numero_Bancos, "
-        + "(SELECT COUNT(*) FROM CLIENTES) AS Numero_Clientes, " 
-        + "(SELECT COUNT(*) FROM CHEQUERAS) AS Numero_Chequeras " 
+    String sql = 
+        "SELECT  (SELECT COUNT(*) FROM BANCOS WHERE STATUS = 'Disponible') AS Numero_Bancos, "
+        + "(SELECT COUNT(*) FROM CLIENTES WHERE STATUS = 'Disponible') AS Numero_Clientes, " 
+        + "(SELECT COUNT(*) FROM CHEQUERAS WHERE STATUS = 'Activa') AS Numero_Chequeras " 
         + "FROM    dual";
     
     Estadisticas estadisticas = new Estadisticas();

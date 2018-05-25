@@ -1,24 +1,18 @@
-/**
- * 
- */
 package bancapp.services.implementation;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import bancapp.daos.interfaces.IchequeraDao;
 import bancapp.daos.interfaces.IconsultaDao;
-import bancapp.models.Chequera;
 import bancapp.models.Estadisticas;
 import bancapp.models.Movimiento;
 import bancapp.services.interfaces.IConsultaService;
 
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
+ * Service de Consulta.
  * @author SergioRamos
  *
  */
@@ -26,13 +20,14 @@ import bancapp.services.interfaces.IConsultaService;
 public class ConsultaService implements IConsultaService {
   
   @Autowired
-  private IconsultaDao consultaDAO;
+  private IconsultaDao consultaDao;
   
   @Autowired
-  private IchequeraDao chequeraDAO;
+  private IchequeraDao chequeraDao;
 
   @Override
-  public ArrayList<Movimiento> consultarDepositos(long idChequera, String periodo, int anio, int mes)
+  public ArrayList<Movimiento> consultarDepositos(
+      long idChequera, String periodo, int anio, int mes)
       throws Exception {
     // TODO Auto-generated method stub
     
@@ -40,7 +35,7 @@ public class ConsultaService implements IConsultaService {
     
     try {
       
-      depositos = consultaDAO.consultarDepositos(idChequera, periodo, anio, mes);
+      depositos = consultaDao.consultarDepositos(idChequera, periodo, anio, mes);
       
     } catch (Exception e) {
       System.out.println("Error en consultarDepositos de ConsultaServicio: " + e);
@@ -56,7 +51,7 @@ public class ConsultaService implements IConsultaService {
     
     try {
       
-      retiros = consultaDAO.consultarRetiros(idChequera, periodo, anio, mes);
+      retiros = consultaDao.consultarRetiros(idChequera, periodo, anio, mes);
       
     } catch (Exception e) {
       System.out.println("Error en consultarRetiros de ConsultaServicio: " + e);
@@ -65,12 +60,11 @@ public class ConsultaService implements IConsultaService {
   }
 
   @Override
-  public ArrayList<Movimiento> consultarTodos(long idChequera, String periodo, int anio, int mes) throws Exception {
+  public ArrayList<Movimiento> consultarTodos(
+      long idChequera, String periodo, int anio, int mes) throws Exception {
     // TODO Auto-generated method stub
     
     ArrayList<Movimiento> movimientosTodos = new ArrayList<>();
-    
-    Chequera chequera = new Chequera();
     
     double saldoApertura = 0.0;
     
@@ -82,9 +76,9 @@ public class ConsultaService implements IConsultaService {
     
     try {
       
-      saldoApertura = chequeraDAO.consultarChequera(idChequera).getSaldoApertura();
+      saldoApertura = chequeraDao.consultarChequera(idChequera).getSaldoApertura();
       
-      movimientosTodos = consultaDAO.consultarTodos(idChequera, periodo, anio, mes);
+      movimientosTodos = consultaDao.consultarTodos(idChequera, periodo, anio, mes);
       
       for (Movimiento movimiento: movimientosTodos) {
         if (contador == 1) {
@@ -158,7 +152,7 @@ public class ConsultaService implements IConsultaService {
     
     try {
       
-      depositosFecha = consultaDAO.consultarDepositosFecha(idChequera, desdeS, hastaS);
+      depositosFecha = consultaDao.consultarDepositosFecha(idChequera, desdeS, hastaS);
       
     } catch (Exception e) {
       System.out.println("Error en consultarDepositosFecha de ConsultaServicio: " + e);
@@ -201,7 +195,7 @@ public class ConsultaService implements IConsultaService {
     
     try {
       
-      retirosFecha = consultaDAO.consultarRetirosFecha(idChequera, desdeS, hastaS);
+      retirosFecha = consultaDao.consultarRetirosFecha(idChequera, desdeS, hastaS);
       
     } catch (Exception e) {
       System.out.println("Error en consultarRetirosFecha de ConsultaServicio: " + e);
@@ -244,7 +238,7 @@ public class ConsultaService implements IConsultaService {
     
     try {
       
-      todosFecha = consultaDAO.consultarTodosFecha(idChequera, desdeS, hastaS);
+      todosFecha = consultaDao.consultarTodosFecha(idChequera, desdeS, hastaS);
       
     } catch (Exception e) {
       System.out.println("Error en consultarTodosFecha de ConsultaServicio: " + e);
@@ -260,7 +254,7 @@ public class ConsultaService implements IConsultaService {
     
     try {
       
-      estadisticas = consultaDAO.consultarEstadisticas();
+      estadisticas = consultaDao.consultarEstadisticas();
       
     } catch (Exception e) {
       System.out.println("Error en consultarEstadisticas de ConsultaServicio: " + e);

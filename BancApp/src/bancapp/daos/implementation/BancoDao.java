@@ -147,13 +147,14 @@ public class BancoDao implements IbancoDao {
     String sql = "UPDATE BANCOS "
         + "SET ENTIDAD = ?, "
         + " SUCURSAL = ?, "
-        + " DIRECCION = ? "
+        + " DIRECCION = ?, "
+        + " STATUS = ? "
         + "WHERE ID = ?";
 
     try {
       
       jdbcTemplate.update(sql, 
-          banco.getEntidad(), banco.getSucursal(), banco.getDireccion(), banco.getIdBanco());
+          banco.getEntidad(), banco.getSucursal(), banco.getDireccion(), banco.getStatus(), banco.getIdBanco());
     
       mensaje = "Banco actualizado con exito";
       

@@ -3,9 +3,8 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-</head>
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +29,7 @@
     <script src="<c:url value="/assets/dist/js/sb-admin-2.js" />"  ></script>
     
     <script>
-    var mensaje = '${mensaje}'
+    var mensaje = '${mensaje}';
     
     if (mensaje != null && mensaje != "") {
         alert('${mensaje}');
@@ -65,14 +64,19 @@
     }
     
     if (document.getElementById('hasta') != null){
-    	document.getElementById('hasta').value= y+"-"+m+"-"+d+"T"+h+":"+mm+":"+s ;
+    	document.getElementById('hasta').value = y+"-"+m+"-"+d+"T"+h+":"+mm+":"+s ;
+    }
+    
+    if (document.getElementById('fechaMovimiento') != null) {
+    	document.getElementById('fechaMovimiento').value = y+"-"+m+"-"+d+"T"+h+":"+mm+":"+s ;
     }
     
     var style = "text-decoration:none;";
+    var fecha = d +"/" + m + "/" + y ;
     
-    document.getElementById('fecha').innerHTML = "<a style="+style+"><h4>Hoy: " + d +"/" + m + "/" + y + " " +h+":"+mm+":"+s + "</h4></a>";
+    document.getElementById('fecha').innerHTML = "<a style="+style+"><h4>Hoy: " + fecha + "</h4></a>";
     
-    console.log(y+"-"+m+"-"+d+"T"+h+":"+mm+":"+s);
+    //console.log(y+"-"+m+"-"+d+"T"+h+":"+mm+":"+s);
     
     jQuery(document).ready(function(){
     	

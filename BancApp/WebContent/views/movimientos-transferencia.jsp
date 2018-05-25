@@ -37,14 +37,16 @@
                             <label>Chequera de Retiro</label>
                             <select class="form-control" name="idChequera">
                                 <c:forEach items="${chequeras }" var="chequera">
-                                    <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } -</option>
+                                    <c:if test="${chequera.status eq 'Activa' }">
+                                        <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } - ${chequera.nombreCliente } ${chequera.apellodoPCliente }</option>
+                                    </c:if>
                                 </c:forEach>
                             </select>
                         </div>
                         
                         <div class="form-group">
                             <label>Fecha de Transferencia</label>
-                            <input class="form-control" type="datetime-local" name="fechaTransferencia" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Transferencia" required>
+                            <input id="fechaMovimiento" class="form-control" type="datetime-local" name="fechaTransferencia" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Transferencia" required>
                         </div>
                     </div>
                     
@@ -65,7 +67,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label>Concepto</label>
-                            <input class="form-control" type="text" id="conepto" name="concepto" placeholder="Concepto de Transferencia" maxlength="100">
+                            <input class="form-control" type="text" id="conepto" name="concepto" placeholder="Concepto de Transferencia" maxlength="100" required>
                         </div>
                         
                         <button class="btn btn-primary" type="submit">Transferir</button>

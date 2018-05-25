@@ -57,8 +57,29 @@ public class ClienteService implements IClienteService {
     
     String respuesta = "";
     
+    ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    
+    boolean actualizarCliente = false;
+    
     try {
-      respuesta = clienteDAO.insertarCliente(cliente);
+      
+      clientes = (ArrayList<Cliente>) clienteDAO.listarClientes();
+      
+      for (Cliente clientedb : clientes) {
+        if (cliente.getRfc().equals(clientedb.getRfc())) {
+          cliente.setIdCliente(clientedb.getIdCliente());
+          actualizarCliente = true;
+        }
+      }
+      
+      if (actualizarCliente) {
+        cliente.setStatus("Disponible");
+        clienteDAO.modificarCliente(cliente);
+        respuesta = "Cliente ya existia en DB, informacion y status actualizados.";
+      } else {
+        respuesta = clienteDAO.insertarCliente(cliente);
+      }
+      
     } catch (Exception e) {
       System.out.println("Error en insertarCliente ClienteService: " + e);
     }
@@ -70,6 +91,8 @@ public class ClienteService implements IClienteService {
   public String modificarCliente(Cliente cliente) throws Exception {
     
     String respuesta = "";
+    
+    cliente.setStatus("Disponible");
     
     try {
       respuesta = clienteDAO.modificarCliente(cliente);

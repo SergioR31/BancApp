@@ -157,6 +157,7 @@ public class MovimientosController {
     movimiento.setConcepto(concepto);
     
     String mensaje = "";
+    String msgMail = "";
     
     try {
       
@@ -166,26 +167,30 @@ public class MovimientosController {
       
       cliente = clienteService.consultarCliente(chequera.getIdCliente());
       
-      mensaje += mensaje + ". Por concepto de " + concepto + ". Con fecha : " + fechaRetiro;
-      
-   // creates a simple e-mail object
-      SimpleMailMessage email = new SimpleMailMessage();
-      System.out.println(cliente.getCorreo());
-      email.setTo(cliente.getCorreo());
-      email.setSubject(subject);
-      email.setText(mensaje);
-      
-      
-   // sends the e-mail
-      mailSender.send(email);
+      msgMail = mensaje + ". Por concepto de " + concepto + ". Con fecha: " + fechaRetiro;
       
     } catch (Exception e) {
       System.out.println("Error en movimientoRetirar: " + e);
+      msgMail = "Retiro no realizado";
     }
     
     attributes.addFlashAttribute(MENSAJE, mensaje);
     
-    return new RedirectView("Chequeras/listado");
+    if (mensaje.equals("Retiro realizado con exito")) {
+      // creates a simple e-mail object
+      SimpleMailMessage email = new SimpleMailMessage();
+      System.out.println(cliente.getCorreo());
+      email.setTo(cliente.getCorreo());
+      email.setSubject(subject);
+      email.setText(msgMail);
+      
+      // sends the e-mail
+      mailSender.send(email);
+      
+      return new RedirectView("Chequeras/listado");
+    } else {
+      return new RedirectView("Movimientos/retiro");
+    }
     
   }
   
@@ -209,11 +214,13 @@ public class MovimientosController {
 
     String fecha = fechaDepositoS.substring(0, 10);
     String hora = "";
+    
     if (fechaDepositoS.substring(11).length() == 5) {
       hora = fechaDepositoS.substring(11) + ":00";
     } else {
       hora = fechaDepositoS.substring(11);
     }
+    
     Timestamp fechaDeposito = Timestamp.valueOf(fecha + " " + hora);
       
     Movimiento movimiento = new Movimiento();
@@ -224,6 +231,7 @@ public class MovimientosController {
     movimiento.setConcepto(concepto);
       
     String mensaje = "";
+    String msgMail = "";
       
     try {
         
@@ -233,28 +241,29 @@ public class MovimientosController {
       
       cliente = clienteService.consultarCliente(chequera.getIdCliente());
       
-      mensaje += mensaje + ". Por concepto de " + concepto + ". Con fecha : " + fechaDeposito;
-      
-      // creates a simple e-mail object
-         SimpleMailMessage email = new SimpleMailMessage();
-         System.out.println(cliente.getCorreo());
-         email.setTo(cliente.getCorreo());
-         email.setSubject(subject);
-         email.setText(mensaje);
-         
-         
-      // sends the e-mail
-         mailSender.send(email);
-      
-      
+      msgMail = mensaje + ". Por concepto de " + concepto + ". Con fecha: " + fechaDeposito;
         
     } catch (Exception e) {
       System.out.println("Error al hacer deposito: " + e);
+      msgMail = "Deposito no realizado";
     }
       
     attributes.addFlashAttribute(MENSAJE, mensaje);
+    
+    if (mensaje.equals("Deposito realizado con exito")) {
+      // creates a simple e-mail object
+      SimpleMailMessage email = new SimpleMailMessage();
+      email.setTo(cliente.getCorreo());
+      email.setSubject(subject);
+      email.setText(msgMail);
       
-    return new RedirectView("Chequeras/listado");
+      // sends the e-mail
+      mailSender.send(email);
+      
+      return new RedirectView("Chequeras/listado");
+    } else {
+      return new RedirectView("Movimientos/deposito");
+    }
       
   }
   
@@ -294,6 +303,7 @@ public class MovimientosController {
     movimiento.setConcepto(concepto);
       
     String mensaje = "";
+    String msgMail = "";
       
     try {
         
@@ -303,9 +313,17 @@ public class MovimientosController {
       
       cliente = clienteService.consultarCliente(chequera.getIdCliente());
       
-      mensaje += mensaje + ". Por concepto de " + concepto + ". Con fecha : " + fechaTransferencia;
+      msgMail = mensaje + ". Por concepto de " + concepto + ". Con fecha : " + fechaTransferencia;
+        
+    } catch (Exception e) {
+      System.out.println("Error al hacer transferencia: " + e);
+      msgMail = "Retiro no realizado";
+    }
       
-      // creates a simple e-mail object
+    attributes.addFlashAttribute(MENSAJE, mensaje);
+    
+    if (mensaje.equals("Transferencia realizada con exito")) {
+   // creates a simple e-mail object
       SimpleMailMessage email = new SimpleMailMessage();
       System.out.println(cliente.getCorreo());
       email.setTo(cliente.getCorreo());
@@ -315,14 +333,11 @@ public class MovimientosController {
          
       // sends the e-mail
       mailSender.send(email);
-        
-    } catch (Exception e) {
-      System.out.println("Error al hacer transferencia: " + e);
+      
+      return new RedirectView("Chequeras/listado");
+    } else {
+      return new RedirectView("Movimientos/transferencia");
     }
-      
-    attributes.addFlashAttribute(MENSAJE, mensaje);
-      
-    return new RedirectView("Chequeras/listado");
       
   }
 

@@ -178,7 +178,8 @@ public class ClienteDao implements IclienteDao {
         + " TELEFONO = ?, "
         + " CORREO = ?, "
         + " FECHA_NACIMIENTO = ?, "
-        + " RFC = ? "
+        + " RFC = ?, "
+        + " STATUS = ? "
         + "WHERE ID = ?";
 
     try {
@@ -194,6 +195,7 @@ public class ClienteDao implements IclienteDao {
           cliente.getCorreo(), 
           cliente.getFechaNacimiento(), 
           cliente.getRfc(), 
+          cliente.getStatus(),
           cliente.getIdCliente());
     
       mensaje = "Cliente actualizado con exito";

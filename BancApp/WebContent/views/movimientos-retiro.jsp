@@ -37,14 +37,16 @@
                             <label>Chequera de Retiro</label>
                             <select class="form-control" name="idChequera">
                                 <c:forEach items="${chequeras }" var="chequera">
-                                    <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } -</option>
+                                    <c:if test="${chequera.status eq 'Activa' }">
+                                        <option value="${chequera.idChequera }">${chequera.idChequera } - Saldo $${chequera.saldo } - ${chequera.nombreCliente } ${chequera.apellodoPCliente }</option>
+                                    </c:if>
                                 </c:forEach>
                             </select>
                         </div>
                         
                         <div class="form-group">
                             <label>Fecha de Retiro</label>
-                            <input class="form-control" type="datetime-local" name="fechaRetiro" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Retiro" required>
+                            <input id="fechaMovimiento" class="form-control" type="datetime-local" name="fechaRetiro" step="1" min="1900-01-01" max="2018-04-01" placeholder="Fecha Retiro" required>
                         </div>
                     </div>
                     
