@@ -300,7 +300,7 @@ public class ConsultasController {
       
       chequera = chequeraService.consultarChequera(idChequera);
       
-      movimientosTodos = consultaService.consultarTodos(idChequera, periodo, anio, mes); 
+      movimientosTodos = consultaService.consultarTodos(idChequera, periodo, anio, mes);
 
     } catch (Exception e) {
       System.out.println("Error en consultarTodos: " + e);
@@ -349,6 +349,7 @@ public class ConsultasController {
       }
       model.addAttribute("mes", stringMes);
     }
+    model.addAttribute("mesNum", mes);
     model.addAttribute("chequera", chequera);
     model.addAttribute("movimientos", movimientosTodos);
     model.addAttribute("totalRetiros", totalRetiros);

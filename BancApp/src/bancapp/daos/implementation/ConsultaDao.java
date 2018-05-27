@@ -362,7 +362,7 @@ public class ConsultaDao implements IconsultaDao {
     }
     
     try {
-      
+
       movimientosTodos = (ArrayList<Movimiento>) jdbcTemplate.query(sql,
           new RowMapper<Movimiento>() {
         

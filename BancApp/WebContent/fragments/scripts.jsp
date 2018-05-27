@@ -219,7 +219,7 @@
             idchequera.focus();
         }else{
         
-        /* chequeraEC.value = idchequera.value; */
+        chequeraEC.value = idchequera.value;
         chequeraM.value = idchequera.value;
         chequeraMP.value = idchequera.value;
         
@@ -229,6 +229,8 @@
     
     function consultar(ruta){
     	
+    	var anioEstadoCuenta = document.getElementById('anioEstadoCuenta');
+            	
     	var anioMovimientos = document.getElementById('anioMovimientos');
         var periodoselect = document.getElementById('periodo');
         
@@ -238,7 +240,7 @@
         var chequeraM = document.getElementById('id_chequeraMovimientos');
         var chequeraMP = document.getElementById('id_chequeraMovimientosP');
         
-        /* chequeraEC.value = chequera.value; */
+        chequeraEC.value = chequera.value;
         chequeraM.value = chequera.value;
         chequeraMP.value = chequera.value;
         
@@ -287,8 +289,13 @@
         }
         
         if (ruta == 'estado-cuenta'){
-        	formEstadoCuenta.action= "/BancApp/Consultar/estado-de-cuenta";
-        	formEstadoCuenta.submit();
+        	if(anioEstadoCuenta.value == 0 || anioEstadoCuenta.value == '') {
+                alert('Ingrese año');
+                anioEstadoCuenta.focus();
+            } else {
+            	formEstadoCuenta.action= "/BancApp/estado-de-cuenta";
+                formEstadoCuenta.submit();
+            }
         }
         
         }
@@ -301,18 +308,20 @@
         
         var chequeraEC = document.getElementById('id_chequeraEC');
         var chequeraM = document.getElementById('id_chequeraMovimientos');
-        var chequeraMP = document.getElementById('id_chequeraMovimientosP');
+        var chequeraMP = document.getElementById('id_chequeraMovimientosP');       
         
         if(idchequera.value == 'default' || idchequera.value == ''){
             alert('Seleccione una chequera');
             idchequera.focus();
             return false;
+            
         } else {
-        
-        /* chequeraEC.value = idchequera.value; */
+        	
+        chequeraEC.value = idchequera.value;
         chequeraM.value = idchequera.value;
         chequeraMP.value = idchequera.value;
         return true;
+        
         }
     }   
     

@@ -71,6 +71,7 @@
                                         </c:if>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                         <!-- /.panel-body -->
@@ -135,7 +136,24 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
+            
+            <%-- <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-info">
+                        <div class="panel-body" style="text-align: center">
+                            <form:form action="/BancApp/downloadPDF">
+                                <input type="hidden" id="reporte" name="reporte" value="consultaTodos">
+                                <input type="hidden" id="idChequera" name="idChequera" value="${chequera.idChequera }">
+                                <input type="hidden" id="anioMovimientos" name="anioMovimientos" value="${anio }">
+                                <input type="hidden" id="mesMovimientos" name="mesMovimientos" value="${mesNum }">
+                                <input type="hidden" id="periodo" name="periodo" value="${periodo }">
+                                <c:import url="/fragments/botonDownloadPDF.jsp"></c:import>
+                            </form:form>
+                        </div>
+                    </div>
+                </div>
+            </div> --%>
         </div>
     
     </div>

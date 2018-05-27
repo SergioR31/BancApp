@@ -49,10 +49,10 @@
                             <!-- /.panel-info -->
                             
                             <div class="panel-group" id="accordion">
-<%--                                 <div class="panel panel-default">
-                                    <div class="panel-heading">
+                                 <div class="panel panel-default">
+                                    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">Estado de Cuenta</a>
+                                        Estado de Cuenta
                                         </h4>
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse" aria-expanded="true" style="">
@@ -64,7 +64,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Año</label>
-                                                        <input class="form-control" type="number" id="anioEstadoCuenta" name="anioEstadoCuenta" placeholder="Año" onKeyPress="if(this.value.length==4) return false;" maxlength="4" required>
+                                                        <input class="form-control" type="number" id="anioEstadoCuenta" name="anioEstadoCuenta" placeholder="Año" onKeyPress="if(this.value.length==4) return false;" maxlength="4" min="2000" max="2018" required>
                                                     </div>
                                                 </div>
                                                 
@@ -96,7 +96,8 @@
                                             </form:form>
                                         </div>
                                     </div>
-                                </div> --%>
+                                </div>
+                                
                                 <div class="panel panel-default">
                                     <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" class="collapsed">
                                         <h4 class="panel-title">

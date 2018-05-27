@@ -11,10 +11,19 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
     
+    <!-- <bean class = "org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" /> -->
+    
     <context:component-scan base-package="bancapp"/>
     
     <mvc:annotation-driven validator="validator"/>
     
+    <bean class = "org.springframework.web.servlet.view.XmlViewResolver">
+      <property name = "location">
+         <value>/WEB-INF/views.xml</value>
+      </property>
+   </bean>
+    
+    <!-- Ruta de los recursos -->
     <mvc:resources mapping="/assets/**" location="/assets/"/>
     
     <!-- Mostrar u ocultar parametros en url -->    

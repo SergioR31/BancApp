@@ -2,12 +2,11 @@
 <!DOCTYPE html>
 <context>
 
-	<WatchedResource>WEB-INF/web.xml</WatchedResource>
-	
-	<Resource name="jdbc/conexionBancApp" auth="Container"
-			type="javax.sql.DataSource" driverClassName="oracle.jdbc.driver.OracleDriver"
-			url="jdbc:oracle:thin:@localhost:1521:xe"
-			username="KND" password="SergioR31" maxActive="20" maxIdle="10"
-			maxWite="-1"/>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <Resource name="jdbc/conexionBancApp" auth="Container"
+    type="javax.sql.DataSource" driverClassName="oracle.jdbc.driver.OracleDriver"
+    url="jdbc:oracle:thin:@localhost:1521:xe"
+    username="KND" password="SergioR31" maxActive="20" maxIdle="10"
+    maxWite="-1"/>
 
 </context>
