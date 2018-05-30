@@ -68,16 +68,40 @@ public class PDFController{
     cliente= clienteService.consultarCliente(chequera.getIdCliente());
     movimientos = consultaService.consultarTodos(idChequera, periodo, anio, mes);
     
+    double totalRetiros = 0;
+    double totalDepositos = 0;
+    
+    int numRetiros = 0;
+    int numDepositos = 0;
+    
+    String mesStr = obtenerMes(mes);
+    
+    for (Movimiento movimiento: movimientos) {
+      if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
+        totalRetiros += movimiento.getMonto();
+        numRetiros += 1;
+      } else {
+        totalDepositos += movimiento.getMonto();
+        numDepositos += 1;
+      }
+    }
+    
     //user data
     EstadoCuenta estadoCuenta = new EstadoCuenta();
     estadoCuenta.setBanco(banco);
     estadoCuenta.setChequera(chequera);
     estadoCuenta.setCliente(cliente);
     estadoCuenta.setMovimientos(movimientos);
+    estadoCuenta.setAnio(anio);
+    estadoCuenta.setMes(mesStr);
+    estadoCuenta.setTotalRetiros(totalRetiros);
+    estadoCuenta.setTotalDepositos(totalDepositos);
+    estadoCuenta.setNumDepositos(numDepositos);
+    estadoCuenta.setNumRetiros(numRetiros);
     
     if (movimientos.size() != 0) {
       
-      return new ModelAndView("PDFView","estadoCuenta",estadoCuenta);
+      return new ModelAndView("PDFView", "estadoCuenta", estadoCuenta);
       
     } else {
       
@@ -95,12 +119,40 @@ public class PDFController{
       model.addAttribute("mensaje", mensaje);
       model.addAttribute("chequeras", chequeras);
       
-      return new ModelAndView("consultas","modelo",model);
+      return new ModelAndView("consultas", "modelo", model);
     }
     
     
   }
   
+  public String obtenerMes(int numMes) {
+    switch (numMes) {
+      case 1:
+        return "Enero";
+      case 2:
+        return "Febrero";
+      case 3:
+        return "Marzo";
+      case 4:
+        return "Abril";
+      case 5:
+        return "Mayo";
+      case 6:
+        return "Junio";
+      case 7:
+        return "Julio";
+      case 8:
+        return "Agosto";
+      case 9:
+        return "Septiembre";
+      case 10:
+        return "Octubre";
+      case 11:
+        return "Noviembre";
+      default:
+        return "Diciembre";
+    }
+  }
   
 
 }
