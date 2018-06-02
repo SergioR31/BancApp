@@ -183,14 +183,14 @@ public class PDFView extends AbstractITextPdfView {
   }
   
   private static void agregarInfoMovimientos(Document document, EstadoCuenta estadoCuenta)
-      throws DocumentException{
+      throws DocumentException {
     
     agregarSaltoLinea(document,1);
     
-    Paragraph saldoAnterior = new Paragraph();
-    saldoAnterior.setFont(mediumFont);
-    saldoAnterior.add("Saldo anterior: ");
-    document.add(saldoAnterior);
+    Paragraph saldoAnteriorPara = new Paragraph();
+    saldoAnteriorPara.setFont(mediumFont);
+    saldoAnteriorPara.add("Saldo anterior: $" + estadoCuenta.getSaldoAnterior() + "0");
+    document.add(saldoAnteriorPara);
     
     agregarSaltoLinea(document,1);
     
@@ -228,7 +228,7 @@ public class PDFView extends AbstractITextPdfView {
     
     Paragraph saldoCorte = new Paragraph();
     saldoCorte.setFont(mediumFont);
-    saldoCorte.add("Saldo al corte: ");
+    saldoCorte.add("Saldo al corte: $" + estadoCuenta.getSaldoAlCorte() + "0");
     document.add(saldoCorte);
     
   }
@@ -246,19 +246,47 @@ public class PDFView extends AbstractITextPdfView {
     
     PdfPTable table = new PdfPTable(5);
     table.setWidthPercentage(100);
+    
+    table.setWidths(new float[] {16, 40, 14, 14, 14});
+    
     table.getDefaultCell().setBorder(Rectangle.BOTTOM);
+    table.getDefaultCell().setFixedHeight(20);
     table.addCell(new Phrase("Fecha", blueMediumFont));
     table.addCell(new Phrase("Concepto", blueMediumFont));
+    table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
     table.addCell(new Phrase("Retiros", blueMediumFont));
     table.addCell(new Phrase("Depositos", blueMediumFont));
     table.addCell(new Phrase("Saldo", blueMediumFont));
     table.setHeaderRows(1);
     
-    table.getDefaultCell().setBorder(Rectangle.BOTTOM);
+    String fecha = "";
+    
     
     for (Movimiento movimiento : movimientos) {
-      table.addCell(new Phrase(movimiento.getFecha().toString(), normalFont));
+      
+      table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+      
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTimeInMillis(movimiento.getFecha().getTime());
+      
+      if (calendar.get(Calendar.DAY_OF_MONTH) < 10) {
+        fecha = "0" + calendar.get(Calendar.DAY_OF_MONTH) + " " 
+            + obtenerMes(calendar.get(Calendar.MONTH + 1));
+      } else {
+        fecha = "" + calendar.get(Calendar.DAY_OF_MONTH) + " " 
+            + obtenerMes(calendar.get(Calendar.MONTH + 1));
+      }
+      
+      String hora = obtenerHora(calendar.get(Calendar.HOUR_OF_DAY), 
+          calendar.get(Calendar.MINUTE), 
+          calendar.get(Calendar.SECOND));
+      
+      table.getDefaultCell().setBorder(Rectangle.BOTTOM);
+      table.getDefaultCell().setFixedHeight(30);
+      table.addCell(new Phrase(fecha + "\n" + hora, normalFont));
       table.addCell(new Phrase(movimiento.getConcepto(), normalFont));
+      
+      table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
       if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
         table.addCell(new Phrase("$" + movimiento.getMonto() + "0", normalFont));
         table.addCell(new Phrase("", normalFont));
@@ -362,6 +390,80 @@ public class PDFView extends AbstractITextPdfView {
     for (int i = 0; i < number; i++) {
       document.add(new Paragraph(" "));
     }
+  }
+  
+  public static String obtenerMes(int numMes) {
+    switch (numMes) {
+      case 1:
+        return "ENE";
+      case 2:
+        return "FEB";
+      case 3:
+        return "MAR";
+      case 4:
+        return "ABR";
+      case 5:
+        return "MAY";
+      case 6:
+        return "JUN";
+      case 7:
+        return "JUL";
+      case 8:
+        return "AGO";
+      case 9:
+        return "SEP";
+      case 10:
+        return "OCT";
+      case 11:
+        return "NOV";
+      default:
+        return "DIC";
+    }
+  }
+  
+  public static String obtenerHora(int horas, int minutos, int segundos) {
+    
+    String strHoras = "";
+    String strMinutos = "";
+    String strSegundos = "";
+    String strAmPm = "";
+    
+    if (horas > 12) {
+      horas = horas - 12; 
+      strAmPm = "P.M.";
+    } else {
+      strAmPm = "A.M.";
+    }
+    
+    if (horas == 0) {
+      horas = 12; 
+      strAmPm = "A.M.";
+    }
+    
+    if (horas < 10) {
+      strHoras = "0" + horas;
+    } else {
+      strHoras = "" + horas;
+    }
+    
+    if (minutos < 10) {
+      strMinutos = "0" + minutos;
+    } else {
+      strMinutos = "" + minutos;
+    }
+    
+    if (segundos < 10) {
+      strSegundos = "0" + segundos;
+    } else {
+      strSegundos = "" + segundos;
+    }
+    
+    String stringHora = "";
+    
+    stringHora = strHoras + ":" + strMinutos + ":" + strSegundos + " " + strAmPm;
+    
+    return stringHora;
+    
   }
   
 }

@@ -57,19 +57,39 @@ public class PDFController{
       @RequestParam("mesEstadodeCuenta") int mes,
       RedirectAttributes attributes) throws Exception {
     
-    String periodo = "mensual";
     Chequera chequera = new Chequera();
     Banco banco = new Banco();
-    Cliente cliente = new Cliente();
     ArrayList<Movimiento> movimientos = new ArrayList<>();
+    ArrayList<Movimiento> movimientosAnteriores = new ArrayList<>();
+    String periodo = "mensual";
     
     chequera = chequeraService.consultarChequera(idChequera);
     banco = bancoService.consultarBanco(chequera.getIdBanco());
-    cliente= clienteService.consultarCliente(chequera.getIdCliente());
     movimientos = consultaService.consultarTodos(idChequera, periodo, anio, mes);
+    movimientosAnteriores = consultaService.consultarAnteriores(idChequera, periodo, anio, mes);
+    Cliente cliente = new Cliente();
+    cliente = clienteService.consultarCliente(chequera.getIdCliente());
     
     double totalRetiros = 0;
     double totalDepositos = 0;
+    double saldo = chequera.getSaldoApertura();
+    double saldoAnterior = 0;
+    double saldoAlCorte = 0;
+    
+    double saldoInicio = 0;
+    double saldoAux = 0;
+    int contador = 1;
+    
+    for(Movimiento movimiento: movimientosAnteriores) {
+      if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
+        saldo -= movimiento.getMonto();
+      } else {
+        saldo += movimiento.getMonto();
+      }
+    }
+    
+    saldoAnterior = saldo;
+    saldoInicio = saldoAnterior;
     
     int numRetiros = 0;
     int numDepositos = 0;
@@ -77,14 +97,35 @@ public class PDFController{
     String mesStr = obtenerMes(mes);
     
     for (Movimiento movimiento: movimientos) {
-      if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
-        totalRetiros += movimiento.getMonto();
-        numRetiros += 1;
+      if (contador == 1) {
+        if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
+          saldoAux = saldoInicio - movimiento.getMonto();
+          movimiento.setSaldo(saldoAux);
+          totalRetiros += movimiento.getMonto();
+          numRetiros += 1;
+        } else {
+          saldoAux = saldoInicio + movimiento.getMonto();
+          movimiento.setSaldo(saldoAux);
+          totalDepositos += movimiento.getMonto();
+          numDepositos += 1;
+        }
+        contador = 2;
       } else {
-        totalDepositos += movimiento.getMonto();
-        numDepositos += 1;
+        if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
+          saldoAux = saldoAux - movimiento.getMonto();
+          movimiento.setSaldo(saldoAux);
+          totalRetiros += movimiento.getMonto();
+          numRetiros += 1;
+        } else {
+          saldoAux = saldoAux + movimiento.getMonto();
+          movimiento.setSaldo(saldoAux);
+          totalDepositos += movimiento.getMonto();
+          numDepositos += 1;
+        }
       }
     }
+    
+    saldoAlCorte = saldoAnterior + totalDepositos - totalRetiros;
     
     //user data
     EstadoCuenta estadoCuenta = new EstadoCuenta();
@@ -98,7 +139,9 @@ public class PDFController{
     estadoCuenta.setTotalDepositos(totalDepositos);
     estadoCuenta.setNumDepositos(numDepositos);
     estadoCuenta.setNumRetiros(numRetiros);
-    
+    estadoCuenta.setSaldoAnterior(saldoAnterior);
+    estadoCuenta.setSaldoAlCorte(saldoAlCorte);
+        
     if (movimientos.size() != 0) {
       
       return new ModelAndView("PDFView", "estadoCuenta", estadoCuenta);

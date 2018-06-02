@@ -30,6 +30,9 @@ public interface IConsultaService {
   public ArrayList<Movimiento> consultarTodos(
       long idChequera, String periodo, int anio, int mes) throws Exception;
   
+  public ArrayList<Movimiento> consultarAnteriores(
+      long idChequera, String periodo, int anio, int mes) throws Exception;
+  
   public ArrayList<Movimiento> consultarTodosFecha(
       long idChequera, String desde, String hasta) throws Exception;
   

@@ -329,7 +329,7 @@ public class ConsultaDao implements IconsultaDao {
     
     if (mes == 12) {
       stringMes1 = "" + mes;
-      dia = "12";
+      dia = "31";
     }
     
     String anual = "SELECT * FROM MOVIMIENTOS M "
@@ -392,6 +392,59 @@ public class ConsultaDao implements IconsultaDao {
     
     return movimientosTodos;
   }
+  
+  @Override
+  public ArrayList<Movimiento> consultarAnteriores(
+      long idChequera, String periodo, int anio, int mes) throws Exception {
+    
+    ArrayList<Movimiento> movimientosAnteriores = new ArrayList<>();
+    
+    String stringMes = "";
+    
+    if (mes < 10) {
+      stringMes = "0" + mes;
+    } else {
+      stringMes = "" + mes;
+    }
+    
+    String sql = "SELECT * FROM MOVIMIENTOS M "
+        + "JOIN TIPOS_MOVIMIENTOS TM ON M.TIPO_MOVIMIENTO_ID = TM.ID "
+        + "WHERE M.CHEQUERA_ID = " + idChequera + " "
+        + "AND M.FECHA < TO_DATE ('01/" + stringMes + "/" + anio + "', 'DD/MM/YYYY') "
+        + "ORDER BY M.FECHA";
+    
+    try {
+      
+      movimientosAnteriores = (ArrayList<Movimiento>) jdbcTemplate.query(sql,
+          new RowMapper<Movimiento>() {
+          
+          @Override
+          public Movimiento mapRow(ResultSet result, int rowNum) throws SQLException {
+            Movimiento movimiento = new Movimiento();
+          
+            movimiento.setIdMovimiento(result.getInt("ID"));
+            movimiento.setConcepto(result.getString("CONCEPTO"));
+            movimiento.setMonto(result.getDouble("MONTO"));
+            movimiento.setFecha(result.getTimestamp("FECHA"));
+            movimiento.setStatus(result.getString("STATUS"));
+            movimiento.setIdTipo(result.getInt("TIPO_MOVIMIENTO_ID"));
+            movimiento.setOperacion(result.getString("OPERACION"));
+            movimiento.setIdChequera(result.getLong("CHEQUERA_ID"));
+            movimiento.setSaldo(result.getDouble("SALDO"));
+        
+            return movimiento; 
+          }
+        
+        });
+      
+    } catch (Exception e) {
+      System.out.println("Error en consultarAnteriores de ConsultaDao: " + e);
+    }
+    
+    return movimientosAnteriores;
+  }
+  
+  
   
   @Override
   public ArrayList<Movimiento> consultarTodosFecha(

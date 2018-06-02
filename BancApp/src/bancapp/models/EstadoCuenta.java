@@ -21,6 +21,8 @@ public class EstadoCuenta {
   private double totalDepositos;
   private int numRetiros;
   private int numDepositos;
+  private double saldoAnterior;
+  private double saldoAlCorte;
   
   /**
    * @return the cliente
@@ -141,6 +143,30 @@ public class EstadoCuenta {
    */
   public void setNumDepositos(int numDepositos) {
     this.numDepositos = numDepositos;
+  }
+  /**
+   * @return the saldoAnterior
+   */
+  public double getSaldoAnterior() {
+    return saldoAnterior;
+  }
+  /**
+   * @param saldoAnterior the saldoAnterior to set
+   */
+  public void setSaldoAnterior(double saldoAnterior) {
+    this.saldoAnterior = saldoAnterior;
+  }
+  /**
+   * @return the saldoAlCorte
+   */
+  public double getSaldoAlCorte() {
+    return saldoAlCorte;
+  }
+  /**
+   * @param saldoAlCorte the saldoAlCorte to set
+   */
+  public void setSaldoAlCorte(double saldoAlCorte) {
+    this.saldoAlCorte = saldoAlCorte;
   }
   
 }

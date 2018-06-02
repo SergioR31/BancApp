@@ -80,34 +80,34 @@ public class ConsultaService implements IConsultaService {
       
       movimientosTodos = consultaDao.consultarTodos(idChequera, periodo, anio, mes);
       
-      for (Movimiento movimiento: movimientosTodos) {
-        if (contador == 1) {
-          if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
-            saldo = saldoApertura - movimiento.getMonto();
-            saldoAnterior = saldo;
-            movimiento.setSaldo(saldo);
-          }
-          if (movimiento.getIdTipo() == 2 || movimiento.getIdTipo() == 4) {
-            saldo = saldoApertura + movimiento.getMonto();
-            saldoAnterior = saldo;
-            movimiento.setSaldo(saldo);
-          }
-          contador = 2;
-        } else {
-          if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
-            saldo = saldoAnterior - movimiento.getMonto();
-            saldoAnterior = saldo;
-            movimiento.setSaldo(saldo);
-          }
-        
-          if (movimiento.getIdTipo() == 2 || movimiento.getIdTipo() == 4) {
-            saldo = saldoAnterior + movimiento.getMonto();
-            saldoAnterior = saldo;
-            movimiento.setSaldo(saldo);
-          }
-        }
-        
-      }
+//      for (Movimiento movimiento: movimientosTodos) {
+//        if (contador == 1) {
+//          if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
+//            saldo = saldoApertura - movimiento.getMonto();
+//            saldoAnterior = saldo;
+//            movimiento.setSaldo(saldo);
+//          }
+//          if (movimiento.getIdTipo() == 2 || movimiento.getIdTipo() == 4) {
+//            saldo = saldoApertura + movimiento.getMonto();
+//            saldoAnterior = saldo;
+//            movimiento.setSaldo(saldo);
+//          }
+//          contador = 2;
+//        } else {
+//          if (movimiento.getIdTipo() == 1 || movimiento.getIdTipo() == 3) {
+//            saldo = saldoAnterior - movimiento.getMonto();
+//            saldoAnterior = saldo;
+//            movimiento.setSaldo(saldo);
+//          }
+//        
+//          if (movimiento.getIdTipo() == 2 || movimiento.getIdTipo() == 4) {
+//            saldo = saldoAnterior + movimiento.getMonto();
+//            saldoAnterior = saldo;
+//            movimiento.setSaldo(saldo);
+//          }
+//        }
+//        
+//      }
       
       
     } catch (Exception e) {
@@ -115,6 +115,23 @@ public class ConsultaService implements IConsultaService {
     }
     
     return movimientosTodos;
+  }
+  
+  @Override
+  public ArrayList<Movimiento> consultarAnteriores(long idChequera, String periodo, int anio,
+      int mes) throws Exception {
+    // TODO Auto-generated method stub
+    ArrayList<Movimiento> movimientosAnteriores = new ArrayList<>();
+    
+    try {
+      
+      movimientosAnteriores = consultaDao.consultarAnteriores(idChequera, periodo, anio, mes);
+      
+    } catch (Exception e) {
+      System.out.println("Error en consultarAnteriores de consultaServicio: " + e);
+    }
+    
+    return movimientosAnteriores;
   }
 
   @Override

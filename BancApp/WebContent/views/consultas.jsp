@@ -55,7 +55,7 @@
                                         Estado de Cuenta
                                         </h4>
                                     </div>
-                                    <div id="collapseOne" class="panel-collapse collapse" aria-expanded="true" style="">
+                                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true" style="">
                                         <div class="panel-body">
                                             <form:form id="formEstadoCuenta" onsubmit="event.preventDefault(); validarForm();">
                                             
